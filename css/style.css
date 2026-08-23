@@ -4,19 +4,19 @@
   /* Main Theme */
   --deep-blue: #1f2074;
   --navy-blue: #162786;
-  --blue: #bec1db;
+  --blue: #3d4ddd;
   --blue-light: #eaf3f9;
 
   /* Neutral Theme */
   --white: #ffffff;
-  --gray: #5b6e83;
-  --gray-dark: #3d4c5a;
+  --gray: #1c4b81;
+  --gray-dark: #177cda;
   --light-gray: #f3f6f8;
   --border-gray: #d9e1e8;
 
   /* Text */
-  --text-dark: #2e4357;
-  --text-muted: #596675;
+  --text-dark: #1d75c7;
+  --text-muted: #205088;
   --text-on-dark: #ffffff;
   --text-on-dark-muted: #d9e4ed;
 
