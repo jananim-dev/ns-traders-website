@@ -1,34 +1,37 @@
 :root {
   --font-main: "Poppins", Arial, sans-serif;
 
-  /* Main Colors */
+  /* Main Theme */
   --deep-blue: #061a33;
   --navy-blue: #0b2a4a;
-  --blue: #124f82;
+  --blue: #17649b;
   --blue-light: #eaf3f9;
 
-  /* Neutral Colors */
+  /* Neutral Theme */
   --white: #ffffff;
   --gray: #6b7785;
-  --gray-dark: #45515d;
+  --gray-dark: #43505c;
   --light-gray: #f3f6f8;
   --border-gray: #d9e1e8;
 
-  /* Text Colors */
+  /* Text */
   --text-dark: #14202b;
   --text-muted: #596675;
   --text-on-dark: #ffffff;
-  --text-on-dark-muted: #d5e0ea;
+  --text-on-dark-muted: #d9e4ed;
 
   /* CTA */
   --whatsapp: #25d366;
   --whatsapp-dark: #168c43;
 
-  /* Effects */
-  --shadow: 0 18px 45px rgba(6, 26, 51, 0.12);
+  /* Shadow */
+  --shadow: 0 18px 45px rgba(6, 26, 51, 0.14);
 }
 
-/* Reset */
+/* =========================
+   RESET
+========================= */
+
 *,
 *::before,
 *::after {
@@ -100,7 +103,10 @@ section {
   scroll-margin-top: 85px;
 }
 
-/* Common */
+/* =========================
+   COMMON
+========================= */
+
 .container {
   width: min(1120px, calc(100% - 40px));
   margin-inline: auto;
@@ -140,7 +146,10 @@ section {
   line-height: 1.8;
 }
 
-/* Buttons */
+/* =========================
+   BUTTONS
+========================= */
+
 .btn {
   display: inline-flex;
   min-height: 48px;
@@ -164,7 +173,7 @@ section {
   transform: translateY(-3px);
 }
 
-/* White Button on Navy Hero */
+/* White CTA on Dark Background */
 .btn-primary {
   color: var(--deep-blue);
   background: var(--white);
@@ -177,7 +186,7 @@ section {
   border-color: var(--blue-light);
 }
 
-/* Green WhatsApp Button */
+/* Green WhatsApp CTA */
 .btn-whatsapp {
   color: var(--white);
   background: var(--whatsapp);
@@ -190,7 +199,7 @@ section {
   border-color: var(--whatsapp-dark);
 }
 
-/* White Button on Image */
+/* White Service Button */
 .btn-light {
   color: var(--deep-blue);
   background: var(--white);
@@ -222,7 +231,10 @@ section {
   font-weight: 600;
 }
 
-/* Header */
+/* =========================
+   HEADER
+========================= */
+
 .header {
   position: fixed;
   top: 0;
@@ -308,15 +320,20 @@ section {
   cursor: pointer;
 }
 
-/* Hero */
+/* =========================
+   HERO
+========================= */
+
 .hero {
   position: relative;
   min-height: min(780px, 100svh);
   display: flex;
   align-items: center;
   overflow: hidden;
-  color: var(--text-on-dark);
-  background: var(--deep-blue) url("../images/hero-poster.jpg")
+  color: var(--white);
+  background:
+    var(--deep-blue)
+    url("../images/hero-poster.jpg")
     center / cover no-repeat;
 }
 
@@ -339,7 +356,7 @@ section {
       90deg,
       rgba(6, 26, 51, 0.97) 0%,
       rgba(6, 26, 51, 0.84) 48%,
-      rgba(6, 26, 51, 0.48) 100%
+      rgba(6, 26, 51, 0.45) 100%
     );
 }
 
@@ -410,7 +427,10 @@ section {
   font-size: 13px;
 }
 
-/* About */
+/* =========================
+   ABOUT
+========================= */
+
 .about-section {
   background: var(--light-gray);
 }
@@ -430,7 +450,10 @@ section {
   line-height: 1.8;
 }
 
-/* Products */
+/* =========================
+   PRODUCTS
+========================= */
+
 .products-section {
   background: var(--white);
 }
@@ -541,7 +564,10 @@ section {
   transform: translateY(-2px);
 }
 
-/* Services */
+/* =========================
+   SERVICES
+========================= */
+
 .services-section {
   color: var(--white);
   background: var(--deep-blue);
@@ -565,13 +591,16 @@ section {
   position: relative;
   min-height: 450px;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 10px;
+  isolation: isolate;
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
+/* Service Background Images */
 .transport-service {
   background-image: url("../images/transport.jpg");
 }
@@ -580,39 +609,74 @@ section {
   background-image: url("../images/earth-mover.jpg");
 }
 
+/*
+  Brightness layer:
+  Image brighter, without affecting text.
+*/
+.service-card::before {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: inherit;
+  filter: brightness(1.18) saturate(0.92);
+  content: "";
+}
+
+/*
+  Light overlay at top,
+  stronger overlay only at bottom for text.
+*/
 .service-overlay {
   position: absolute;
   inset: 0;
+  z-index: -1;
   background:
     linear-gradient(
-      0deg,
-      rgba(6, 26, 51, 0.97),
-      rgba(6, 26, 51, 0.12)
+      180deg,
+      rgba(6, 26, 51, 0.05) 0%,
+      rgba(6, 26, 51, 0.14) 38%,
+      rgba(6, 26, 51, 0.78) 78%,
+      rgba(6, 26, 51, 0.90) 100%
     );
 }
 
 .service-content {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 560px;
   padding: 42px;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.5);
+}
+
+.service-number {
+  color: var(--blue-light);
 }
 
 .service-content h3 {
   margin-bottom: 15px;
   color: var(--white);
   font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
   line-height: 1.1;
 }
 
 .service-content p:not(.service-number) {
   max-width: 490px;
   margin-bottom: 24px;
-  color: var(--text-on-dark-muted);
-  line-height: 1.7;
+  color: #f2f6f9;
+  font-size: 15px;
+  line-height: 1.75;
 }
 
-/* Features */
+.service-content .btn-light {
+  text-shadow: none;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
 .features-section {
   background: var(--white);
 }
@@ -644,7 +708,10 @@ section {
   line-height: 1.65;
 }
 
-/* Process */
+/* =========================
+   PROCESS
+========================= */
+
 .process-section {
   background: var(--light-gray);
 }
@@ -674,7 +741,10 @@ section {
   line-height: 1.65;
 }
 
-/* Gallery */
+/* =========================
+   GALLERY
+========================= */
+
 .gallery-section {
   background: var(--white);
 }
@@ -710,6 +780,7 @@ section {
 }
 
 .demo-note {
+  margin-top: 15px;
   padding: 12px 15px;
   border-left: 3px solid var(--blue);
   color: var(--gray-dark);
@@ -718,7 +789,10 @@ section {
   line-height: 1.6;
 }
 
-/* Testimonials */
+/* =========================
+   TESTIMONIALS
+========================= */
+
 .testimonials-section {
   background: var(--light-gray);
 }
@@ -763,7 +837,10 @@ section {
   font-size: 13px;
 }
 
-/* Contact */
+/* =========================
+   CONTACT
+========================= */
+
 .contact-section {
   background: var(--light-gray);
 }
@@ -839,7 +916,10 @@ section {
   font-size: 14px;
 }
 
-/* Footer */
+/* =========================
+   FOOTER
+========================= */
+
 .footer {
   padding-top: 65px;
   color: var(--text-on-dark-muted);
@@ -900,7 +980,10 @@ section {
   margin-bottom: 0;
 }
 
-/* Lightbox */
+/* =========================
+   LIGHTBOX
+========================= */
+
 .lightbox {
   position: fixed;
   inset: 0;
@@ -934,12 +1017,18 @@ section {
   cursor: pointer;
 }
 
-/* Mobile Bottom Actions */
+/* =========================
+   MOBILE BOTTOM ACTIONS
+========================= */
+
 .mobile-actions {
   display: none;
 }
 
-/* Reveal Animation */
+/* =========================
+   REVEAL ANIMATION
+========================= */
+
 .reveal {
   opacity: 0;
   transform: translateY(35px);
@@ -953,7 +1042,10 @@ section {
   transform: translateY(0);
 }
 
-/* Tablet */
+/* =========================
+   TABLET
+========================= */
+
 @media (max-width: 1000px) {
   .nav-links {
     gap: 13px;
@@ -973,7 +1065,10 @@ section {
   }
 }
 
-/* Mobile Navigation */
+/* =========================
+   MOBILE NAVIGATION
+========================= */
+
 @media (max-width: 850px) {
   .navbar {
     position: relative;
@@ -1028,7 +1123,10 @@ section {
   }
 }
 
-/* Small Mobile */
+/* =========================
+   SMALL MOBILE
+========================= */
+
 @media (max-width: 600px) {
   body {
     padding-bottom: 56px;
@@ -1111,6 +1209,25 @@ section {
     padding: 27px;
   }
 
+  .service-content h3 {
+    font-size: 2rem;
+  }
+
+  .service-content p:not(.service-number) {
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .service-overlay {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(6, 26, 51, 0.08) 0%,
+        rgba(6, 26, 51, 0.25) 40%,
+        rgba(6, 26, 51, 0.84) 100%
+      );
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: 160px;
@@ -1166,7 +1283,10 @@ section {
   }
 }
 
-/* Very Small Mobile */
+/* =========================
+   VERY SMALL MOBILE
+========================= */
+
 @media (max-width: 380px) {
   .brand img {
     width: 95px;
@@ -1190,7 +1310,10 @@ section {
   }
 }
 
-/* Accessibility */
+/* =========================
+   REDUCED MOTION
+========================= */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
