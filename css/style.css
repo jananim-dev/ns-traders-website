@@ -2,30 +2,30 @@
   --font-main: "Poppins", Arial, sans-serif;
 
   /* Main Theme */
-  --deep-blue: #1f2074;
-  --navy-blue: #162786;
-  --blue: #3d4ddd;
+  --deep-blue: #061a33;
+  --navy-blue: #0b2a4a;
+  --blue: #17649b;
   --blue-light: #eaf3f9;
 
   /* Neutral Theme */
   --white: #ffffff;
-  --gray: #1c4b81;
-  --gray-dark: #177cda;
+  --gray: #6b7785;
+  --gray-dark: #43505c;
   --light-gray: #f3f6f8;
   --border-gray: #d9e1e8;
 
   /* Text */
-  --text-dark: #1d75c7;
-  --text-muted: #205088;
+  --text-dark: #14202b;
+  --text-muted: #596675;
   --text-on-dark: #ffffff;
   --text-on-dark-muted: #d9e4ed;
 
-  /* CTA */
-  --whatsapp: #0e913e;
-  --whatsapp-dark: #168c43;
+  /* WhatsApp Green */
+  --whatsapp: #128c45;
+  --whatsapp-dark: #0b6f36;
 
   /* Shadow */
-  --shadow: 0 18px 45px rgba(23, 65, 117, 0.14);
+  --shadow: 0 18px 45px rgba(6, 26, 51, 0.14);
 }
 
 /* =========================
@@ -173,7 +173,7 @@ section {
   transform: translateY(-3px);
 }
 
-/* White CTA on Dark Background */
+/* White CTA Button */
 .btn-primary {
   color: var(--deep-blue);
   background: var(--white);
@@ -186,7 +186,7 @@ section {
   border-color: var(--blue-light);
 }
 
-/* Green WhatsApp CTA */
+/* WhatsApp Green Button */
 .btn-whatsapp {
   color: var(--white);
   background: var(--whatsapp);
@@ -287,6 +287,7 @@ section {
   color: var(--blue-light);
 }
 
+/* Header WhatsApp Button */
 .nav-whatsapp {
   display: inline-flex;
   min-height: 42px;
@@ -304,6 +305,7 @@ section {
 }
 
 .nav-whatsapp:hover {
+  color: var(--white);
   background: var(--whatsapp-dark);
   transform: translateY(-2px);
 }
@@ -354,9 +356,9 @@ section {
   background:
     linear-gradient(
       90deg,
-      rgba(29, 21, 102, 0.97) 0%,
-      rgba(30, 67, 112, 0.84) 48%,
-      rgba(93, 152, 224, 0.45) 100%
+      rgba(6, 26, 51, 0.97) 0%,
+      rgba(6, 26, 51, 0.84) 48%,
+      rgba(6, 26, 51, 0.45) 100%
     );
 }
 
@@ -600,7 +602,6 @@ section {
   background-repeat: no-repeat;
 }
 
-/* Service Background Images */
 .transport-service {
   background-image: url("../images/transport.jpg");
 }
@@ -609,23 +610,17 @@ section {
   background-image: url("../images/earth-mover.jpg");
 }
 
-/*
-  Brightness layer:
-  Image brighter, without affecting text.
-*/
+/* Bright Image Layer */
 .service-card::before {
   position: absolute;
   inset: 0;
   z-index: -2;
   background: inherit;
-  filter: brightness(1.18) saturate(0.92);
+  filter: brightness(1.2) saturate(0.92);
   content: "";
 }
 
-/*
-  Light overlay at top,
-  stronger overlay only at bottom for text.
-*/
+/* Light Overlay + Bottom Readability */
 .service-overlay {
   position: absolute;
   inset: 0;
@@ -633,10 +628,10 @@ section {
   background:
     linear-gradient(
       180deg,
-      rgba(190, 193, 223, 0.05) 0%,
-      rgba(91, 90, 160, 0.14) 38%,
-      rgba(175, 180, 212, 0.78) 78%,
-      rgba(169, 159, 206, 0.9) 100%
+      rgba(6, 26, 51, 0.06) 0%,
+      rgba(6, 26, 51, 0.18) 38%,
+      rgba(6, 26, 51, 0.74) 76%,
+      rgba(6, 26, 51, 0.9) 100%
     );
 }
 
@@ -1222,9 +1217,9 @@ section {
     background:
       linear-gradient(
         180deg,
-        rgba(30, 67, 112, 0.08) 0%,
-        rgba(8, 46, 92, 0.25) 40%,
-        rgba(6, 39, 80, 0.84) 100%
+        rgba(6, 26, 51, 0.08) 0%,
+        rgba(6, 26, 51, 0.25) 40%,
+        rgba(6, 26, 51, 0.84) 100%
       );
   }
 
@@ -1323,7 +1318,6 @@ section {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 
