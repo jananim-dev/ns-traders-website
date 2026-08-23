@@ -3,21 +3,20 @@
 
   --dark: #0b1f33;
   --dark-light: #143b5d;
-  --blue: #1769aa;
-  --blue-light: #eaf3f9;
-
-  --gold: #d99a2b;
-  --gold-light: #efb848;
 
   --white: #ffffff;
-  --light: #f5f7fa;
-  --surface: #eef4f8;
+  --gray: #6f7b87;
+  --light-gray: #f4f6f8;
+  --border: #dfe5ea;
 
   --text: #17202a;
   --muted: #697586;
-  --border: #e2e8ed;
+
+  --cta-blue: #dcecf8;
+  --cta-blue-hover: #c7e0f0;
 
   --whatsapp: #25d366;
+  --whatsapp-dark: #1da851;
 
   --shadow: 0 18px 45px rgba(11, 31, 51, 0.12);
 }
@@ -106,7 +105,7 @@ section {
 
 .section-label {
   margin-bottom: 15px;
-  color: var(--gold);
+  color: var(--dark-light);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -139,12 +138,13 @@ section {
   min-height: 48px;
   align-items: center;
   justify-content: center;
-  padding: 12px 20px;
+  padding: 12px 22px;
   border: 1px solid transparent;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;
   text-align: center;
+  cursor: pointer;
   transition:
     transform 0.3s ease,
     background 0.3s ease,
@@ -156,29 +156,46 @@ section {
   transform: translateY(-3px);
 }
 
+/* White Primary CTA */
 .btn-primary {
   color: var(--dark);
-  background: var(--gold);
+  background: var(--white);
+  border-color: var(--white);
 }
 
 .btn-primary:hover {
-  background: var(--gold-light);
+  color: var(--dark);
+  background: var(--cta-blue);
+  border-color: var(--cta-blue);
 }
 
+/* Green WhatsApp CTA */
 .btn-whatsapp {
   color: var(--white);
   background: var(--whatsapp);
+  border-color: var(--whatsapp);
 }
 
 .btn-whatsapp:hover {
-  background: #1db954;
+  color: var(--white);
+  background: var(--whatsapp-dark);
+  border-color: var(--whatsapp-dark);
 }
 
+/* White Button on Service Images */
 .btn-light {
   color: var(--dark);
   background: var(--white);
+  border-color: var(--white);
 }
 
+.btn-light:hover {
+  color: var(--dark);
+  background: var(--cta-blue);
+  border-color: var(--cta-blue);
+}
+
+/* Outline Button */
 .btn-outline {
   color: var(--dark);
   border-color: var(--dark);
@@ -187,12 +204,13 @@ section {
 
 .btn-outline:hover {
   color: var(--white);
+  border-color: var(--dark);
   background: var(--dark);
 }
 
 .text-link {
   display: inline-block;
-  color: var(--blue);
+  color: var(--dark-light);
   font-weight: 600;
 }
 
@@ -246,7 +264,7 @@ section {
 }
 
 .nav-links a:hover {
-  color: var(--gold);
+  color: var(--cta-blue);
 }
 
 .nav-whatsapp {
@@ -260,6 +278,14 @@ section {
   background: var(--whatsapp);
   font-size: 13px;
   font-weight: 600;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.nav-whatsapp:hover {
+  background: var(--whatsapp-dark);
+  transform: translateY(-2px);
 }
 
 .menu-button {
@@ -302,8 +328,8 @@ section {
   background:
     linear-gradient(
       90deg,
-      rgba(5, 20, 35, 0.96) 0%,
-      rgba(5, 20, 35, 0.72) 47%,
+      rgba(5, 20, 35, 0.95) 0%,
+      rgba(5, 20, 35, 0.75) 48%,
       rgba(5, 20, 35, 0.35) 100%
     );
 }
@@ -313,25 +339,14 @@ section {
   z-index: 2;
   width: 100%;
   max-width: 820px;
-  padding-top: 105px;
-}
-
-.hero-logo {
-  width: 155px;
-  height: auto;
-  max-height: 90px;
-  margin-bottom: 25px;
-  padding: 8px;
-  border-radius: 6px;
-  object-fit: contain;
-  background: var(--white);
+  padding-top: 100px;
 }
 
 .eyebrow {
   margin-bottom: 18px;
-  color: var(--gold);
+  color: #dbeaf4;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 2px;
 }
 
@@ -347,7 +362,7 @@ section {
 
 .hero h1 span {
   display: block;
-  color: var(--gold);
+  color: var(--white);
 }
 
 .hero-description {
@@ -388,7 +403,7 @@ section {
 
 /* About */
 .about-section {
-  background: var(--light);
+  background: var(--light-gray);
 }
 
 .about-layout,
@@ -474,7 +489,7 @@ section {
 .feature-card > span,
 .process-card > span {
   margin-bottom: 12px;
-  color: var(--gold);
+  color: var(--dark-light);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -495,9 +510,26 @@ section {
 }
 
 .product-whatsapp {
-  color: var(--blue);
-  font-size: 14px;
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  padding: 10px 14px;
+  border: 1px solid var(--dark);
+  border-radius: 5px;
+  color: var(--dark);
+  background: var(--white);
+  font-size: 13px;
   font-weight: 600;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.product-whatsapp:hover {
+  color: var(--white);
+  background: var(--dark);
+  transform: translateY(-2px);
 }
 
 /* Services */
@@ -585,8 +617,8 @@ section {
 .feature-card {
   min-height: 190px;
   padding: 30px 26px;
-  border-top: 3px solid var(--gold);
-  background: var(--light);
+  border-top: 3px solid var(--dark-light);
+  background: var(--light-gray);
 }
 
 .feature-card h3 {
@@ -605,7 +637,7 @@ section {
 
 /* Process */
 .process-section {
-  background: var(--light);
+  background: var(--light-gray);
 }
 
 .process-grid {
@@ -668,9 +700,18 @@ section {
   transform: scale(1.08);
 }
 
+.demo-note {
+  padding: 12px 15px;
+  border-left: 3px solid var(--dark-light);
+  color: var(--gray);
+  background: var(--light-gray);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 /* Testimonials */
 .testimonials-section {
-  background: var(--light);
+  background: var(--light-gray);
 }
 
 .testimonial-grid {
@@ -687,7 +728,7 @@ section {
 
 .stars {
   margin-bottom: 18px;
-  color: var(--gold);
+  color: var(--dark-light);
   letter-spacing: 3px;
 }
 
@@ -709,13 +750,13 @@ section {
 
 .testimonial-card span {
   margin-top: 4px;
-  color: var(--gold);
+  color: var(--gray);
   font-size: 13px;
 }
 
 /* Contact */
 .contact-section {
-  background: var(--light);
+  background: var(--light-gray);
 }
 
 .contact-info {
@@ -736,10 +777,6 @@ section {
 
 .contact-info strong {
   color: var(--dark);
-}
-
-.contact-info a {
-  color: var(--blue);
 }
 
 .contact-buttons {
@@ -836,7 +873,7 @@ section {
 }
 
 .footer-column a:hover {
-  color: var(--gold);
+  color: var(--cta-blue);
 }
 
 .footer-bottom {
@@ -889,7 +926,7 @@ section {
   display: none;
 }
 
-/* Scroll Reveal */
+/* Reveal Animation */
 .reveal {
   opacity: 0;
   transform: translateY(35px);
@@ -1007,11 +1044,6 @@ section {
     padding-top: 130px;
   }
 
-  .hero-logo {
-    width: 130px;
-    max-height: 75px;
-  }
-
   .hero h1 {
     font-size: clamp(2.7rem, 13vw, 4rem);
     line-height: 1;
@@ -1025,6 +1057,7 @@ section {
   .hero-buttons,
   .contact-buttons {
     flex-direction: column;
+    gap: 12px;
   }
 
   .hero-buttons .btn,
