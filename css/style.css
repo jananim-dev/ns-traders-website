@@ -2,30 +2,30 @@
   --font-main: "Poppins", Arial, sans-serif;
 
   /* Main Theme */
-  --deep-blue: #061a33;
-  --navy-blue: #0b2a4a;
-  --blue: #17649b;
+  --deep-blue: #1f2074;
+  --navy-blue: #162786;
+  --blue: #17249b;
   --blue-light: #eaf3f9;
 
   /* Neutral Theme */
   --white: #ffffff;
-  --gray: #6b7785;
-  --gray-dark: #43505c;
+  --gray: #5b6e83;
+  --gray-dark: #3d4c5a;
   --light-gray: #f3f6f8;
   --border-gray: #d9e1e8;
 
   /* Text */
-  --text-dark: #14202b;
+  --text-dark: #2e4357;
   --text-muted: #596675;
   --text-on-dark: #ffffff;
   --text-on-dark-muted: #d9e4ed;
 
   /* CTA */
-  --whatsapp: #25d366;
+  --whatsapp: #0e913e;
   --whatsapp-dark: #168c43;
 
   /* Shadow */
-  --shadow: 0 18px 45px rgba(6, 26, 51, 0.14);
+  --shadow: 0 18px 45px rgba(23, 65, 117, 0.14);
 }
 
 /* =========================
@@ -354,9 +354,9 @@ section {
   background:
     linear-gradient(
       90deg,
-      rgba(6, 26, 51, 0.97) 0%,
-      rgba(6, 26, 51, 0.84) 48%,
-      rgba(6, 26, 51, 0.45) 100%
+      rgba(29, 21, 102, 0.97) 0%,
+      rgba(30, 67, 112, 0.84) 48%,
+      rgba(30, 67, 112, 0.45) 100%
     );
 }
 
@@ -633,9 +633,9 @@ section {
   background:
     linear-gradient(
       180deg,
-      rgba(6, 26, 51, 0.05) 0%,
-      rgba(6, 26, 51, 0.14) 38%,
-      rgba(6, 26, 51, 0.78) 78%,
+      rgba(23, 61, 107, 0.05) 0%,
+      rgba(37, 36, 128, 0.14) 38%,
+      rgba(36, 50, 128, 0.78) 78%,
       rgba(6, 26, 51, 0.90) 100%
     );
 }
@@ -1222,9 +1222,9 @@ section {
     background:
       linear-gradient(
         180deg,
-        rgba(6, 26, 51, 0.08) 0%,
-        rgba(6, 26, 51, 0.25) 40%,
-        rgba(6, 26, 51, 0.84) 100%
+        rgba(30, 67, 112, 0.08) 0%,
+        rgba(8, 46, 92, 0.25) 40%,
+        rgba(6, 39, 80, 0.84) 100%
       );
   }
 
