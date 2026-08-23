@@ -19,7 +19,7 @@ const generalWhatsappButtons = [
   document.getElementById("navWhatsapp"),
   document.getElementById("heroWhatsapp"),
   document.getElementById("contactWhatsapp"),
-  document.getElementById("mobileWhatsapp")
+  document.getElementById("floatWhatsapp")
 ];
 
 generalWhatsappButtons.forEach((button) => {
@@ -27,6 +27,18 @@ generalWhatsappButtons.forEach((button) => {
     button.href = createWhatsAppLink(generalMessage);
   }
 });
+
+/* Floating Call Button */
+const floatCallButton = document.getElementById("floatCall");
+
+if (floatCallButton) {
+  /*
+    Uses the same number as WhatsApp for now.
+    If client gives a separate call number, replace whatsappNumber
+    below with that number.
+  */
+  floatCallButton.href = `tel:+${whatsappNumber}`;
+}
 
 /* Product WhatsApp Buttons */
 const productButtons = document.querySelectorAll(".product-whatsapp");
