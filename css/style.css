@@ -1,24 +1,31 @@
 :root {
   --font-main: "Poppins", Arial, sans-serif;
 
-  --dark:#0624aae7;
-  --dark-light: #074479;
+  /* Main Colors */
+  --deep-blue: #061a33;
+  --navy-blue: #0b2a4a;
+  --blue: #124f82;
+  --blue-light: #eaf3f9;
 
+  /* Neutral Colors */
   --white: #ffffff;
-  --gray: #6f7b87;
-  --light-gray: #f4f6f8;
-  --border: #dfe5ea;
+  --gray: #6b7785;
+  --gray-dark: #45515d;
+  --light-gray: #f3f6f8;
+  --border-gray: #d9e1e8;
 
-  --text: #17202a;
-  --muted: #697586;
+  /* Text Colors */
+  --text-dark: #14202b;
+  --text-muted: #596675;
+  --text-on-dark: #ffffff;
+  --text-on-dark-muted: #d5e0ea;
 
-  --cta-blue: #dcecf8;
-  --cta-blue-hover: #c7e0f0;
-
+  /* CTA */
   --whatsapp: #25d366;
-  --whatsapp-dark: #1da851;
+  --whatsapp-dark: #168c43;
 
-  --shadow: 0 18px 45px rgba(11, 31, 51, 0.12);
+  /* Effects */
+  --shadow: 0 18px 45px rgba(6, 26, 51, 0.12);
 }
 
 /* Reset */
@@ -35,7 +42,7 @@ html {
 body {
   margin: 0;
   overflow-x: hidden;
-  color: var(--text);
+  color: var(--text-dark);
   background: var(--white);
   font-family: var(--font-main);
   font-size: 16px;
@@ -105,7 +112,7 @@ section {
 
 .section-label {
   margin-bottom: 15px;
-  color: var(--dark-light);
+  color: var(--blue);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
@@ -121,7 +128,7 @@ section {
 .about-layout h2,
 .contact-layout h2 {
   margin-bottom: 20px;
-  color: var(--dark);
+  color: var(--deep-blue);
   font-size: clamp(2rem, 5vw, 3.7rem);
   font-weight: 700;
   line-height: 1.08;
@@ -129,10 +136,11 @@ section {
 
 .section-heading > p:last-child {
   margin-bottom: 0;
-  color: var(--muted);
+  color: var(--text-muted);
   line-height: 1.8;
 }
 
+/* Buttons */
 .btn {
   display: inline-flex;
   min-height: 48px;
@@ -156,20 +164,20 @@ section {
   transform: translateY(-3px);
 }
 
-/* White Primary CTA */
+/* White Button on Navy Hero */
 .btn-primary {
-  color: var(--dark);
+  color: var(--deep-blue);
   background: var(--white);
   border-color: var(--white);
 }
 
 .btn-primary:hover {
-  color: var(--dark);
-  background: var(--cta-blue);
-  border-color: var(--cta-blue);
+  color: var(--deep-blue);
+  background: var(--blue-light);
+  border-color: var(--blue-light);
 }
 
-/* Green WhatsApp CTA */
+/* Green WhatsApp Button */
 .btn-whatsapp {
   color: var(--white);
   background: var(--whatsapp);
@@ -182,35 +190,35 @@ section {
   border-color: var(--whatsapp-dark);
 }
 
-/* White Button on Service Images */
+/* White Button on Image */
 .btn-light {
-  color: var(--dark);
+  color: var(--deep-blue);
   background: var(--white);
   border-color: var(--white);
 }
 
 .btn-light:hover {
-  color: var(--dark);
-  background: var(--cta-blue);
-  border-color: var(--cta-blue);
+  color: var(--deep-blue);
+  background: var(--blue-light);
+  border-color: var(--blue-light);
 }
 
 /* Outline Button */
 .btn-outline {
-  color: var(--dark);
-  border-color: var(--dark);
+  color: var(--deep-blue);
+  border-color: var(--deep-blue);
   background: transparent;
 }
 
 .btn-outline:hover {
   color: var(--white);
-  border-color: var(--dark);
-  background: var(--dark);
+  border-color: var(--deep-blue);
+  background: var(--deep-blue);
 }
 
 .text-link {
   display: inline-block;
-  color: var(--dark-light);
+  color: var(--blue);
   font-weight: 600;
 }
 
@@ -221,8 +229,8 @@ section {
   left: 0;
   z-index: 1000;
   width: 100%;
-  background: rgba(11, 31, 51, 0.96);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(6, 26, 51, 0.97);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(12px);
 }
 
@@ -264,7 +272,7 @@ section {
 }
 
 .nav-links a:hover {
-  color: var(--cta-blue);
+  color: var(--blue-light);
 }
 
 .nav-whatsapp {
@@ -307,8 +315,9 @@ section {
   display: flex;
   align-items: center;
   overflow: hidden;
-  color: var(--white);
-  background: url("../images/hero-poster.jpg") center / cover no-repeat;
+  color: var(--text-on-dark);
+  background: var(--deep-blue) url("../images/hero-poster.jpg")
+    center / cover no-repeat;
 }
 
 .hero-video {
@@ -328,9 +337,9 @@ section {
   background:
     linear-gradient(
       90deg,
-      rgba(5, 20, 35, 0.95) 0%,
-      rgba(5, 20, 35, 0.75) 48%,
-      rgba(5, 20, 35, 0.35) 100%
+      rgba(6, 26, 51, 0.97) 0%,
+      rgba(6, 26, 51, 0.84) 48%,
+      rgba(6, 26, 51, 0.48) 100%
     );
 }
 
@@ -344,7 +353,7 @@ section {
 
 .eyebrow {
   margin-bottom: 18px;
-  color: #dbeaf4;
+  color: var(--blue-light);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -368,7 +377,7 @@ section {
 .hero-description {
   max-width: 570px;
   margin-bottom: 32px;
-  color: #d9e2ec;
+  color: var(--text-on-dark-muted);
   font-size: clamp(1rem, 1.5vw, 1.12rem);
   line-height: 1.8;
 }
@@ -397,7 +406,7 @@ section {
 }
 
 .trust-item span {
-  color: #c5d0dc;
+  color: var(--text-on-dark-muted);
   font-size: 13px;
 }
 
@@ -417,7 +426,7 @@ section {
 .about-content p,
 .contact-description {
   margin-bottom: 16px;
-  color: var(--muted);
+  color: var(--text-muted);
   line-height: 1.8;
 }
 
@@ -435,10 +444,10 @@ section {
 .product-card {
   min-width: 0;
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-gray);
   border-radius: 8px;
   background: var(--white);
-  box-shadow: 0 5px 18px rgba(11, 31, 51, 0.04);
+  box-shadow: 0 5px 18px rgba(6, 26, 51, 0.04);
   transition:
     transform 0.35s ease,
     box-shadow 0.35s ease;
@@ -475,7 +484,7 @@ section {
   width: fit-content;
   padding: 7px 10px;
   color: var(--white);
-  background: rgba(11, 31, 51, 0.9);
+  background: rgba(6, 26, 51, 0.92);
   font-size: 11px;
   font-weight: 600;
 }
@@ -489,7 +498,7 @@ section {
 .feature-card > span,
 .process-card > span {
   margin-bottom: 12px;
-  color: var(--dark-light);
+  color: var(--blue);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -497,7 +506,7 @@ section {
 
 .product-content h3 {
   margin-bottom: 12px;
-  color: var(--dark);
+  color: var(--deep-blue);
   font-size: 22px;
   line-height: 1.2;
 }
@@ -505,7 +514,7 @@ section {
 .product-content p:not(.product-number) {
   min-height: 55px;
   margin-bottom: 24px;
-  color: var(--muted);
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -514,9 +523,9 @@ section {
   min-height: 42px;
   align-items: center;
   padding: 10px 14px;
-  border: 1px solid var(--dark);
+  border: 1px solid var(--deep-blue);
   border-radius: 5px;
-  color: var(--dark);
+  color: var(--deep-blue);
   background: var(--white);
   font-size: 13px;
   font-weight: 600;
@@ -528,14 +537,14 @@ section {
 
 .product-whatsapp:hover {
   color: var(--white);
-  background: var(--dark);
+  background: var(--deep-blue);
   transform: translateY(-2px);
 }
 
 /* Services */
 .services-section {
   color: var(--white);
-  background: var(--dark);
+  background: var(--deep-blue);
 }
 
 .light-heading h2 {
@@ -543,7 +552,7 @@ section {
 }
 
 .light-heading > p:last-child {
-  color: #c5d0dc;
+  color: var(--text-on-dark-muted);
 }
 
 .services-grid {
@@ -577,8 +586,8 @@ section {
   background:
     linear-gradient(
       0deg,
-      rgba(5, 20, 35, 0.95),
-      rgba(5, 20, 35, 0.1)
+      rgba(6, 26, 51, 0.97),
+      rgba(6, 26, 51, 0.12)
     );
 }
 
@@ -599,7 +608,7 @@ section {
 .service-content p:not(.service-number) {
   max-width: 490px;
   margin-bottom: 24px;
-  color: #d9e2ec;
+  color: var(--text-on-dark-muted);
   line-height: 1.7;
 }
 
@@ -617,20 +626,20 @@ section {
 .feature-card {
   min-height: 190px;
   padding: 30px 26px;
-  border-top: 3px solid var(--dark-light);
+  border-top: 3px solid var(--blue);
   background: var(--light-gray);
 }
 
 .feature-card h3 {
   margin: 22px 0 10px;
-  color: var(--dark);
+  color: var(--deep-blue);
   font-size: 19px;
   line-height: 1.25;
 }
 
 .feature-card p {
   margin-bottom: 0;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 14px;
   line-height: 1.65;
 }
@@ -648,19 +657,19 @@ section {
 
 .process-card {
   padding: 28px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-gray);
   background: var(--white);
 }
 
 .process-card h3 {
   margin: 18px 0 10px;
-  color: var(--dark);
+  color: var(--deep-blue);
   font-size: 19px;
 }
 
 .process-card p {
   margin-bottom: 0;
-  color: var(--muted);
+  color: var(--text-muted);
   font-size: 14px;
   line-height: 1.65;
 }
@@ -702,8 +711,8 @@ section {
 
 .demo-note {
   padding: 12px 15px;
-  border-left: 3px solid var(--dark-light);
-  color: var(--gray);
+  border-left: 3px solid var(--blue);
+  color: var(--gray-dark);
   background: var(--light-gray);
   font-size: 13px;
   line-height: 1.6;
@@ -722,20 +731,20 @@ section {
 
 .testimonial-card {
   padding: 30px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-gray);
   background: var(--white);
 }
 
 .stars {
   margin-bottom: 18px;
-  color: var(--dark-light);
+  color: var(--blue);
   letter-spacing: 3px;
 }
 
 .testimonial-card p {
   min-height: 55px;
   margin-bottom: 24px;
-  color: var(--muted);
+  color: var(--text-muted);
   line-height: 1.7;
 }
 
@@ -745,12 +754,12 @@ section {
 }
 
 .testimonial-card strong {
-  color: var(--dark);
+  color: var(--deep-blue);
 }
 
 .testimonial-card span {
   margin-top: 4px;
-  color: var(--gray);
+  color: var(--gray-dark);
   font-size: 13px;
 }
 
@@ -762,13 +771,13 @@ section {
 .contact-info {
   margin: 32px 0;
   padding: 22px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border-gray);
+  border-bottom: 1px solid var(--border-gray);
 }
 
 .contact-info p {
   margin-bottom: 13px;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 
 .contact-info p:last-child {
@@ -776,7 +785,11 @@ section {
 }
 
 .contact-info strong {
-  color: var(--dark);
+  color: var(--deep-blue);
+}
+
+.contact-info a {
+  color: var(--blue);
 }
 
 .contact-buttons {
@@ -803,7 +816,7 @@ section {
 .map-placeholder {
   width: 100%;
   padding: 50px 30px;
-  color: var(--muted);
+  color: var(--text-muted);
   text-align: center;
 }
 
@@ -816,7 +829,7 @@ section {
   margin-bottom: 18px;
   border-radius: 50%;
   color: var(--white);
-  background: var(--dark);
+  background: var(--deep-blue);
   font-size: 13px;
   font-weight: 700;
 }
@@ -829,8 +842,8 @@ section {
 /* Footer */
 .footer {
   padding-top: 65px;
-  color: #b8c6d3;
-  background: var(--dark);
+  color: var(--text-on-dark-muted);
+  background: var(--deep-blue);
 }
 
 .footer-grid {
@@ -867,18 +880,18 @@ section {
 .footer-column a {
   display: block;
   margin: 10px 0;
-  color: #b8c6d3;
+  color: var(--text-on-dark-muted);
   font-size: 14px;
   transition: color 0.3s ease;
 }
 
 .footer-column a:hover {
-  color: var(--cta-blue);
+  color: var(--blue-light);
 }
 
 .footer-bottom {
   padding: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
   text-align: center;
   font-size: 13px;
 }
@@ -980,7 +993,7 @@ section {
     align-items: stretch;
     gap: 0;
     padding: 15px 20px 20px;
-    background: var(--dark);
+    background: var(--deep-blue);
     box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
   }
 
@@ -991,7 +1004,8 @@ section {
   .nav-links a {
     display: block;
     padding: 14px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    color: var(--white);
     font-size: 15px;
   }
 
@@ -1125,7 +1139,7 @@ section {
     z-index: 1500;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    background: var(--dark);
+    background: var(--deep-blue);
     box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
   }
 
