@@ -277,8 +277,8 @@ section {
 }
 
 .brand img {
-  width: 115px;
-  height: 48px;
+  width: 145px;
+  height: 60px;
   object-fit: contain;
 }
 
@@ -949,8 +949,8 @@ section {
 }
 
 .footer-brand img {
-  width: 120px;
-  height: 48px;
+  width: 150px;
+  height: 62px;
   object-fit: contain;
 }
 
@@ -1317,7 +1317,7 @@ section {
 
 @media (max-width: 380px) {
   .brand img {
-    width: 95px;
+    width: 150px;
   }
 
   .hero-trust {
