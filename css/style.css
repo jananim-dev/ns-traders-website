@@ -946,8 +946,6 @@ section {
 .footer-brand {
   display: inline-flex;
   padding: 5px 8px;
-  border-radius: 6px;
-  background-color: var(--white);
 }
 
 .footer-brand img {
