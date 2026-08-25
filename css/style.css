@@ -462,6 +462,10 @@ section {
   align-items: center;
 }
 
+.contact-layout {
+  align-items: stretch;
+}
+
 .about-content p,
 .contact-description {
   margin-bottom: 16px;
@@ -621,6 +625,18 @@ section {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
+}
+
+.service-card:hover::before {
+  transform: scale(1.08);
 }
 
 .transport-service {
@@ -638,6 +654,7 @@ section {
   z-index: -2;
   background: inherit;
   filter: brightness(1.2) saturate(0.92);
+  transition: transform 0.5s ease;
   content: "";
 }
 
@@ -707,7 +724,18 @@ section {
   min-height: 190px;
   padding: 30px 26px;
   border-top: 3px solid var(--blue);
+  border-radius: 10px;
   background-color: var(--light-gray);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  background-color: var(--white);
+  box-shadow: var(--shadow);
 }
 
 .feature-card h3 {
@@ -741,7 +769,16 @@ section {
 .process-card {
   padding: 28px;
   border: 1px solid var(--border-gray);
+  border-radius: 10px;
   background-color: var(--white);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.process-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
 }
 
 .process-card h3 {
@@ -822,7 +859,16 @@ section {
 .testimonial-card {
   padding: 30px;
   border: 1px solid var(--border-gray);
+  border-radius: 10px;
   background-color: var(--white);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow);
 }
 
 .stars {
@@ -863,26 +909,55 @@ section {
 
 .contact-info {
   margin: 32px 0;
-  padding: 22px 0;
-  border-top: 1px solid var(--border-gray);
+  padding: 10px 28px;
+  border-radius: 10px;
+  background-color: var(--white);
+  box-shadow: 0 5px 18px rgba(6, 26, 51, 0.05);
+}
+
+.contact-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 18px 0;
   border-bottom: 1px solid var(--border-gray);
 }
 
-.contact-info p {
-  margin-bottom: 13px;
-  color: var(--text-muted);
+.contact-info-item:last-child {
+  border-bottom: 0;
 }
 
-.contact-info p:last-child {
-  margin-bottom: 0;
-}
-
-.contact-info strong {
+.contact-icon {
+  display: flex;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   color: var(--deep-blue);
+  background-color: var(--blue-light);
 }
 
-.contact-info a {
-  color: var(--blue);
+.contact-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.contact-info-item strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--deep-blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.contact-info-item p {
+  margin-bottom: 0;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
 .contact-buttons {
@@ -893,16 +968,19 @@ section {
 
 .map-wrapper {
   min-height: 420px;
+  height: 100%;
   display: grid;
   place-items: center;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: #dce5ec;
+  box-shadow: 0 5px 18px rgba(6, 26, 51, 0.06);
 }
 
 .map-wrapper iframe {
   width: 100%;
-  height: 420px;
+  height: 100%;
+  min-height: 420px;
   border: 0;
 }
 
@@ -1094,6 +1172,40 @@ section {
   transform: translateY(0);
 }
 
+.reveal-left {
+  transform: translateX(-45px);
+}
+
+.reveal-left.show {
+  transform: translateX(0);
+}
+
+.reveal-right {
+  transform: translateX(45px);
+}
+
+.reveal-right.show {
+  transform: translateX(0);
+}
+
+.features-grid .reveal:nth-child(2),
+.process-grid .reveal:nth-child(2),
+.services-grid .reveal:nth-child(2),
+.testimonial-grid .reveal:nth-child(2) {
+  transition-delay: 0.1s;
+}
+
+.features-grid .reveal:nth-child(3),
+.process-grid .reveal:nth-child(3),
+.testimonial-grid .reveal:nth-child(3) {
+  transition-delay: 0.2s;
+}
+
+.features-grid .reveal:nth-child(4),
+.process-grid .reveal:nth-child(4) {
+  transition-delay: 0.3s;
+}
+
 /* =========================
    TABLET
 ========================= */
@@ -1205,7 +1317,7 @@ section {
   }
 
   .hero-content {
-    padding-top: 130px;
+    padding-top: 30px;
   }
 
   .hero h1 {
