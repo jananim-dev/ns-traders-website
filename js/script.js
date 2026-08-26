@@ -1,216 +1,722 @@
 "use strict";
 
 /*
-  IMPORTANT:
-  Replace this with the client's actual WhatsApp number.
-  Country code included, without + and spaces.
+==================================================
+NS TRADERS WHATSAPP SETTINGS
+==================================================
+
+Replace this number with owner's actual WhatsApp number.
+
+India example:
+919876543210
+
+Correct:
+919876543210
+
+Wrong:
++91 98765 43210
+91-98765-43210
++919876543210
+==================================================
 */
-const whatsappNumber = "91XXXXXXXXXX";
+
+const whatsappNumber =
+  "91XXXXXXXXXX";
+
+const companyName =
+  "NS Traders";
 
 const generalMessage =
   "Hello NS Traders, I need details about your construction materials and services.";
 
-function createWhatsAppLink(message) {
-  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+/*
+==================================================
+WHATSAPP FUNCTIONS
+==================================================
+*/
+
+function whatsappNumberReady() {
+  return (
+    whatsappNumber !==
+    "91XXXXXXXXXX"
+  );
 }
 
-/* General WhatsApp Buttons */
-const generalWhatsappButtons = [
+function createWhatsAppLink(message) {
+  return (
+    "https://wa.me/" +
+    whatsappNumber +
+    "?text=" +
+    encodeURIComponent(message)
+  );
+}
+
+function openWhatsApp(message) {
+  if (!whatsappNumberReady()) {
+    window.alert(
+      "Please replace the WhatsApp number in js/script.js first."
+    );
+
+    return;
+  }
+
+  const link =
+    createWhatsAppLink(message);
+
+  window.open(
+    link,
+    "_blank",
+    "noopener,noreferrer"
+  );
+}
+
+/*
+==================================================
+GENERAL WHATSAPP BUTTONS
+==================================================
+*/
+
+const generalButtons = [
   document.getElementById("navWhatsapp"),
   document.getElementById("heroWhatsapp"),
   document.getElementById("contactWhatsapp"),
   document.getElementById("floatWhatsapp")
 ];
 
-generalWhatsappButtons.forEach((button) => {
-  if (button) {
-    button.href = createWhatsAppLink(generalMessage);
+generalButtons.forEach(
+  function (button) {
+    if (!button) {
+      return;
+    }
+
+    button.addEventListener(
+      "click",
+      function (event) {
+        event.preventDefault();
+
+        openWhatsApp(
+          generalMessage
+        );
+      }
+    );
   }
-});
+);
 
-/* Floating Call Button */
-const floatCallButton = document.getElementById("floatCall");
+/*
+==================================================
+PRODUCT BUTTONS
+==================================================
+*/
 
-if (floatCallButton) {
-  /*
-    Uses the same number as WhatsApp for now.
-    If client gives a separate call number, replace whatsappNumber
-    below with that number.
-  */
-  floatCallButton.href = `tel:+${whatsappNumber}`;
+const productButtons =
+  document.querySelectorAll(
+    ".product-whatsapp"
+  );
+
+productButtons.forEach(
+  function (button) {
+    button.addEventListener(
+      "click",
+      function (event) {
+        event.preventDefault();
+
+        const productName =
+          button.dataset.product ||
+          "construction material";
+
+        const productMessage =
+          "Hello " +
+          companyName +
+          ",\n\n" +
+          "I need today's price for:\n" +
+          productName +
+          "\n\n" +
+          "Please share availability, quantity and delivery details.";
+
+        openWhatsApp(
+          productMessage
+        );
+      }
+    );
+  }
+);
+
+/*
+==================================================
+SERVICE BUTTONS
+==================================================
+*/
+
+const serviceButtons =
+  document.querySelectorAll(
+    ".service-whatsapp"
+  );
+
+serviceButtons.forEach(
+  function (button) {
+    button.addEventListener(
+      "click",
+      function (event) {
+        event.preventDefault();
+
+        const serviceName =
+          button.dataset.service ||
+          "your service";
+
+        const serviceMessage =
+          "Hello " +
+          companyName +
+          ",\n\n" +
+          "I need details about:\n" +
+          serviceName +
+          "\n\n" +
+          "Please share availability and quotation details.";
+
+        openWhatsApp(
+          serviceMessage
+        );
+      }
+    );
+  }
+);
+
+/*
+==================================================
+CONTACT FORM TO WHATSAPP
+==================================================
+*/
+
+const contactForm =
+  document.getElementById(
+    "contactForm"
+  );
+
+const formStatus =
+  document.getElementById(
+    "formStatus"
+  );
+
+if (contactForm) {
+  contactForm.addEventListener(
+    "submit",
+    function (event) {
+      event.preventDefault();
+
+      const formData =
+        new FormData(contactForm);
+
+      const name =
+        String(
+          formData.get("name") || ""
+        ).trim();
+
+      const phone =
+        String(
+          formData.get("phone") || ""
+        ).trim();
+
+      const email =
+        String(
+          formData.get("email") || ""
+        ).trim();
+
+      const requirement =
+        String(
+          formData.get("requirement") || ""
+        ).trim();
+
+      const message =
+        String(
+          formData.get("message") || ""
+        ).trim();
+
+      if (
+        !name ||
+        !phone ||
+        !requirement ||
+        !message
+      ) {
+        if (formStatus) {
+          formStatus.textContent =
+            "Please fill all required fields.";
+
+          formStatus.className =
+            "form-status error";
+        }
+
+        return;
+      }
+
+      if (!whatsappNumberReady()) {
+        if (formStatus) {
+          formStatus.textContent =
+            "Please replace the WhatsApp number in js/script.js first.";
+
+          formStatus.className =
+            "form-status error";
+        }
+
+        return;
+      }
+
+      const enquiryMessage =
+        "Hello " +
+        companyName +
+        ",\n\n" +
+        "New Customer Enquiry\n" +
+        "====================\n\n" +
+        "Name: " +
+        name +
+        "\n" +
+        "Phone: " +
+        phone +
+        "\n" +
+        "Email: " +
+        (
+          email ||
+          "Not provided"
+        ) +
+        "\n" +
+        "Requirement: " +
+        requirement +
+        "\n" +
+        "Message: " +
+        message +
+        "\n\n" +
+        "Please contact me with quotation details.";
+
+      if (formStatus) {
+        formStatus.textContent =
+          "Opening WhatsApp...";
+
+        formStatus.className =
+          "form-status success";
+      }
+
+      openWhatsApp(
+        enquiryMessage
+      );
+
+      contactForm.reset();
+
+      window.setTimeout(
+        function () {
+          if (formStatus) {
+            formStatus.textContent =
+              "";
+
+            formStatus.className =
+              "form-status";
+          }
+        },
+        4000
+      );
+    }
+  );
 }
 
-/* Product WhatsApp Buttons */
-const productButtons = document.querySelectorAll(".product-whatsapp");
+/*
+==================================================
+MOBILE MENU
+==================================================
+*/
 
-productButtons.forEach((button) => {
-  const productName = button.dataset.product;
+const menuButton =
+  document.getElementById(
+    "menuButton"
+  );
 
-  const message =
-    `Hello NS Traders, I need today's price for ${productName}. ` +
-    "Please share availability, quantity and delivery details.";
-
-  button.href = createWhatsAppLink(message);
-});
-
-/* Service WhatsApp Buttons */
-const serviceButtons = document.querySelectorAll(".service-whatsapp");
-
-serviceButtons.forEach((button) => {
-  const serviceName = button.dataset.service;
-
-  const message =
-    `Hello NS Traders, I need details about ${serviceName}. ` +
-    "Please share availability and quotation details.";
-
-  button.href = createWhatsAppLink(message);
-});
-
-/* Mobile Menu */
-const menuButton = document.getElementById("menuButton");
-const navLinks = document.getElementById("navLinks");
+const navLinks =
+  document.getElementById(
+    "navLinks"
+  );
 
 if (menuButton && navLinks) {
-  menuButton.addEventListener("click", () => {
-    const menuIsOpen = navLinks.classList.toggle("active");
+  menuButton.addEventListener(
+    "click",
+    function () {
+      const menuIsOpen =
+        navLinks.classList.toggle(
+          "active"
+        );
 
-    menuButton.setAttribute(
-      "aria-expanded",
-      String(menuIsOpen)
+      menuButton.setAttribute(
+        "aria-expanded",
+        String(menuIsOpen)
+      );
+
+      menuButton.setAttribute(
+        "aria-label",
+        menuIsOpen
+          ? "Close navigation menu"
+          : "Open navigation menu"
+      );
+
+      menuButton.textContent =
+        menuIsOpen ? "×" : "☰";
+    }
+  );
+
+  /*
+    Important:
+    Admin link normal navigation.
+    No preventDefault() here.
+  */
+  navLinks
+    .querySelectorAll("a")
+    .forEach(
+      function (link) {
+        link.addEventListener(
+          "click",
+          function () {
+            navLinks.classList.remove(
+              "active"
+            );
+
+            menuButton.setAttribute(
+              "aria-expanded",
+              "false"
+            );
+
+            menuButton.setAttribute(
+              "aria-label",
+              "Open navigation menu"
+            );
+
+            menuButton.textContent =
+              "☰";
+          }
+        );
+      }
     );
+}
 
-    menuButton.setAttribute(
-      "aria-label",
-      menuIsOpen ? "Close navigation menu" : "Open navigation menu"
-    );
+/*
+==================================================
+CLOSE MOBILE MENU OUTSIDE
+==================================================
+*/
 
-    menuButton.textContent = menuIsOpen ? "×" : "☰";
-  });
+document.addEventListener(
+  "click",
+  function (event) {
+    if (
+      !menuButton ||
+      !navLinks
+    ) {
+      return;
+    }
 
-  document.querySelectorAll(".nav-links a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("active");
+    const clickedInsideNav =
+      navLinks.contains(
+        event.target
+      );
 
-      menuButton.setAttribute("aria-expanded", "false");
+    const clickedMenuButton =
+      menuButton.contains(
+        event.target
+      );
+
+    const isMenuOpen =
+      navLinks.classList.contains(
+        "active"
+      );
+
+    if (
+      isMenuOpen &&
+      !clickedInsideNav &&
+      !clickedMenuButton
+    ) {
+      navLinks.classList.remove(
+        "active"
+      );
+
+      menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
       menuButton.setAttribute(
         "aria-label",
         "Open navigation menu"
       );
 
-      menuButton.textContent = "☰";
-    });
-  });
+      menuButton.textContent =
+        "☰";
+    }
+  }
+);
+
+/*
+==================================================
+CALL BUTTON
+==================================================
+*/
+
+const floatCall =
+  document.getElementById(
+    "floatCall"
+  );
+
+if (floatCall) {
+  floatCall.addEventListener(
+    "click",
+    function (event) {
+      event.preventDefault();
+
+      if (!whatsappNumberReady()) {
+        window.alert(
+          "Please replace the WhatsApp number in js/script.js first."
+        );
+
+        return;
+      }
+
+      window.location.href =
+        "tel:+" +
+        whatsappNumber;
+    }
+  );
 }
 
-/* Close Mobile Menu When Clicking Outside */
-document.addEventListener("click", (event) => {
-  if (!menuButton || !navLinks) {
-    return;
-  }
+/*
+==================================================
+PRODUCTS FLOATING BUTTON
+==================================================
+*/
 
-  const clickedInsideMenu = navLinks.contains(event.target);
-  const clickedMenuButton = menuButton.contains(event.target);
+const floatProducts =
+  document.getElementById(
+    "floatProducts"
+  );
 
-  if (
-    !clickedInsideMenu &&
-    !clickedMenuButton &&
-    navLinks.classList.contains("active")
-  ) {
-    navLinks.classList.remove("active");
-    menuButton.setAttribute("aria-expanded", "false");
-    menuButton.textContent = "☰";
-  }
-});
+if (floatProducts) {
+  floatProducts.addEventListener(
+    "click",
+    function (event) {
+      event.preventDefault();
 
-/* Background Video */
-const heroVideo = document.querySelector(".hero-video");
+      const productsSection =
+        document.getElementById(
+          "products"
+        );
+
+      if (productsSection) {
+        productsSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }
+  );
+}
+
+/*
+==================================================
+BACKGROUND VIDEO
+==================================================
+*/
+
+const heroVideo =
+  document.querySelector(
+    ".hero-video"
+  );
 
 if (heroVideo) {
   heroVideo.muted = true;
 
-  heroVideo.play().catch(() => {
-    /*
-      If autoplay is blocked, poster image remains visible.
-    */
-    console.log("Background video autoplay was blocked.");
-  });
-}
+  const playPromise =
+    heroVideo.play();
 
-/* Scroll Reveal */
-const revealItems = document.querySelectorAll(".reveal");
-
-if ("IntersectionObserver" in window) {
-  const revealObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.12
-    }
-  );
-
-  revealItems.forEach((item) => {
-    revealObserver.observe(item);
-  });
-} else {
-  revealItems.forEach((item) => {
-    item.classList.add("show");
-  });
-}
-
-/* Gallery Lightbox */
-const galleryImages = document.querySelectorAll(".gallery-item img");
-const lightbox = document.getElementById("lightbox");
-const lightboxImage = document.getElementById("lightboxImage");
-const lightboxClose = document.getElementById("lightboxClose");
-
-function closeLightbox() {
-  if (lightbox) {
-    lightbox.classList.remove("active");
-    document.body.classList.remove("lightbox-open");
+  if (
+    playPromise &&
+    typeof playPromise.catch ===
+      "function"
+  ) {
+    playPromise.catch(
+      function () {
+        console.log(
+          "Background video autoplay was blocked."
+        );
+      }
+    );
   }
 }
 
-galleryImages.forEach((image) => {
-  image.addEventListener("click", () => {
-    if (!lightbox || !lightboxImage) {
-      return;
+/*
+==================================================
+SCROLL REVEAL
+==================================================
+*/
+
+const revealItems =
+  document.querySelectorAll(
+    ".reveal"
+  );
+
+if (
+  "IntersectionObserver" in window
+) {
+  const revealObserver =
+    new IntersectionObserver(
+      function (
+        entries,
+        observer
+      ) {
+        entries.forEach(
+          function (entry) {
+            if (
+              entry.isIntersecting
+            ) {
+              entry.target.classList.add(
+                "show"
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+            }
+          }
+        );
+      },
+      {
+        threshold: 0.12
+      }
+    );
+
+  revealItems.forEach(
+    function (item) {
+      revealObserver.observe(item);
     }
+  );
+} else {
+  revealItems.forEach(
+    function (item) {
+      item.classList.add(
+        "show"
+      );
+    }
+  );
+}
 
-    lightboxImage.src = image.src;
-    lightboxImage.alt = image.alt;
+/*
+==================================================
+GALLERY LIGHTBOX
+==================================================
+*/
 
-    lightbox.classList.add("active");
-    document.body.classList.add("lightbox-open");
-  });
-});
+const galleryImages =
+  document.querySelectorAll(
+    ".gallery-item img"
+  );
+
+const lightbox =
+  document.getElementById(
+    "lightbox"
+  );
+
+const lightboxImage =
+  document.getElementById(
+    "lightboxImage"
+  );
+
+const lightboxClose =
+  document.getElementById(
+    "lightboxClose"
+  );
+
+function closeLightbox() {
+  if (!lightbox) {
+    return;
+  }
+
+  lightbox.classList.remove(
+    "active"
+  );
+
+  document.body.classList.remove(
+    "lightbox-open"
+  );
+
+  if (lightboxImage) {
+    lightboxImage.src =
+      "";
+  }
+}
+
+galleryImages.forEach(
+  function (image) {
+    image.addEventListener(
+      "click",
+      function () {
+        if (
+          !lightbox ||
+          !lightboxImage
+        ) {
+          return;
+        }
+
+        lightboxImage.src =
+          image.currentSrc ||
+          image.src;
+
+        lightboxImage.alt =
+          image.alt ||
+          "NS Traders gallery image";
+
+        lightbox.classList.add(
+          "active"
+        );
+
+        document.body.classList.add(
+          "lightbox-open"
+        );
+      }
+    );
+  }
+);
 
 if (lightboxClose) {
-  lightboxClose.addEventListener("click", closeLightbox);
+  lightboxClose.addEventListener(
+    "click",
+    closeLightbox
+  );
 }
 
 if (lightbox) {
-  lightbox.addEventListener("click", (event) => {
-    if (event.target === lightbox) {
-      closeLightbox();
+  lightbox.addEventListener(
+    "click",
+    function (event) {
+      if (
+        event.target === lightbox
+      ) {
+        closeLightbox();
+      }
     }
-  });
+  );
 }
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeLightbox();
+document.addEventListener(
+  "keydown",
+  function (event) {
+    if (event.key === "Escape") {
+      closeLightbox();
+    }
   }
-});
+);
 
-/* Current Year */
-const currentYear = document.getElementById("currentYear");
+/*
+==================================================
+CURRENT YEAR
+==================================================
+*/
+
+const currentYear =
+  document.getElementById(
+    "currentYear"
+  );
 
 if (currentYear) {
-  currentYear.textContent = new Date().getFullYear();
+  currentYear.textContent =
+    new Date().getFullYear();
 }
