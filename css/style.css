@@ -148,6 +148,16 @@ section {
   line-height: 1.8;
 }
 
+.demo-note {
+  margin-top: 15px;
+  padding: 12px 15px;
+  border-left: 3px solid var(--blue);
+  color: var(--gray-dark);
+  background-color: var(--light-gray);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
 /* =========================
    BUTTONS
 ========================= */
@@ -175,7 +185,7 @@ section {
   transform: translateY(-3px);
 }
 
-/* White Primary CTA */
+/* Primary Button */
 .btn-primary {
   color: var(--deep-blue);
   background-color: var(--white);
@@ -188,33 +198,22 @@ section {
   border-color: var(--blue-light);
 }
 
-/* General WhatsApp Button */
-.btn-whatsapp {
+/* WhatsApp Button */
+.btn-whatsapp,
+.btn-contact-whatsapp {
   color: var(--white);
   background-color: var(--whatsapp);
   border-color: var(--whatsapp);
 }
 
-.btn-whatsapp:hover {
+.btn-whatsapp:hover,
+.btn-contact-whatsapp:hover {
   color: var(--white);
   background-color: var(--whatsapp-dark);
   border-color: var(--whatsapp-dark);
 }
 
-/* Contact WhatsApp Button */
-.btn-contact-whatsapp {
-  color: var(--white) !important;
-  background-color: var(--whatsapp) !important;
-  border-color: var(--whatsapp) !important;
-}
-
-.btn-contact-whatsapp:hover {
-  color: var(--white) !important;
-  background-color: var(--whatsapp-dark) !important;
-  border-color: var(--whatsapp-dark) !important;
-}
-
-/* White Service Button */
+/* White Button */
 .btn-light {
   color: var(--deep-blue);
   background-color: var(--white);
@@ -236,8 +235,8 @@ section {
 
 .btn-outline:hover {
   color: var(--white);
-  border-color: var(--deep-blue);
   background-color: var(--deep-blue);
+  border-color: var(--deep-blue);
 }
 
 .text-link {
@@ -266,7 +265,7 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 28px;
+  gap: 24px;
 }
 
 .brand {
@@ -290,11 +289,14 @@ section {
 }
 
 .nav-links a {
-  padding: 8px 14px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
   border-radius: 6px;
   color: var(--text-dark);
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
+  white-space: nowrap;
   transition:
     color 0.3s ease,
     background-color 0.3s ease;
@@ -303,6 +305,33 @@ section {
 .nav-links a:hover {
   color: var(--deep-blue);
   background-color: var(--blue-light);
+}
+
+/* Admin Last Button */
+.nav-links .admin-nav-link {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  border: 1px solid var(--deep-blue);
+  border-radius: 6px;
+  color: var(--white);
+  background-color: var(--deep-blue);
+  font-size: 12px;
+  font-weight: 700;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+}
+
+.nav-links .admin-nav-link:hover {
+  color: var(--deep-blue);
+  background-color: var(--white);
+  border-color: var(--deep-blue);
+  transform: translateY(-2px);
 }
 
 .nav-whatsapp {
@@ -316,12 +345,14 @@ section {
   background-color: var(--whatsapp);
   font-size: 13px;
   font-weight: 600;
+  white-space: nowrap;
   transition:
     background-color 0.3s ease,
     transform 0.3s ease;
 }
 
 .nav-whatsapp:hover {
+  color: var(--white);
   background-color: var(--whatsapp-dark);
   transform: translateY(-2px);
 }
@@ -369,7 +400,7 @@ section {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: rgba(6, 26, 51, 0.72);
+  background-color: rgba(6, 26, 51, 0.72);
 }
 
 .hero-content {
@@ -647,7 +678,6 @@ section {
   background-image: url("../images/earth-mover.jpg");
 }
 
-/* Bright Service Image */
 .service-card::before {
   position: absolute;
   inset: 0;
@@ -658,7 +688,6 @@ section {
   content: "";
 }
 
-/* Light Top Overlay + Dark Bottom Text Area */
 .service-overlay {
   position: absolute;
   inset: 0;
@@ -690,7 +719,6 @@ section {
   margin-bottom: 15px;
   color: var(--white);
   font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 700;
   line-height: 1.1;
 }
 
@@ -832,16 +860,6 @@ section {
   transform: scale(1.08);
 }
 
-.demo-note {
-  margin-top: 15px;
-  padding: 12px 15px;
-  border-left: 3px solid var(--blue);
-  color: var(--gray-dark);
-  background-color: var(--light-gray);
-  font-size: 13px;
-  line-height: 1.6;
-}
-
 /* =========================
    TESTIMONIALS
 ========================= */
@@ -937,6 +955,7 @@ section {
   border-radius: 50%;
   color: var(--deep-blue);
   background-color: var(--blue-light);
+  font-size: 17px;
 }
 
 .contact-icon svg {
@@ -966,6 +985,62 @@ section {
   gap: 12px;
 }
 
+/* Contact Form */
+.contact-form {
+  display: grid;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.contact-form label {
+  color: var(--deep-blue);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-gray);
+  border-radius: 6px;
+  color: var(--text-dark);
+  background-color: var(--white);
+  font-family: var(--font-main);
+  font-size: 14px;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  border-color: var(--deep-blue);
+  box-shadow: 0 0 0 3px rgba(53, 62, 187, 0.12);
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form .btn {
+  margin-top: 10px;
+}
+
+.form-status {
+  min-height: 24px;
+  margin: 8px 0 0;
+  font-size: 13px;
+}
+
+.form-status.success {
+  color: var(--whatsapp-dark);
+}
+
+.form-status.error {
+  color: #b3261e;
+}
+
 .map-wrapper {
   min-height: 420px;
   height: 100%;
@@ -982,32 +1057,6 @@ section {
   height: 100%;
   min-height: 420px;
   border: 0;
-}
-
-.map-placeholder {
-  width: 100%;
-  padding: 50px 30px;
-  color: var(--text-muted);
-  text-align: center;
-}
-
-.map-placeholder span {
-  display: inline-flex;
-  width: 65px;
-  height: 65px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  border-radius: 50%;
-  color: var(--white);
-  background-color: var(--deep-blue);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.map-placeholder p {
-  margin-bottom: 0;
-  font-size: 14px;
 }
 
 /* =========================
@@ -1131,11 +1180,14 @@ section {
   justify-content: center;
   border-radius: 50%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .float-btn:hover {
   transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.32);
 }
 
 .float-btn svg {
@@ -1210,13 +1262,22 @@ section {
    TABLET
 ========================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
+  .navbar {
+    gap: 14px;
+  }
+
   .nav-links {
-    gap: 13px;
+    gap: 0;
   }
 
   .nav-links a {
-    font-size: 12px;
+    padding-inline: 8px;
+    font-size: 11px;
+  }
+
+  .nav-links .admin-nav-link {
+    padding-inline: 11px;
   }
 
   .product-grid {
@@ -1236,6 +1297,7 @@ section {
 @media (max-width: 850px) {
   .navbar {
     position: relative;
+    min-height: 82px;
   }
 
   .menu-button {
@@ -1264,8 +1326,32 @@ section {
     display: block;
     padding: 14px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 0;
     color: var(--white);
     font-size: 15px;
+  }
+
+  .nav-links a:hover {
+    color: var(--white);
+    background-color: transparent;
+  }
+
+  .nav-links .admin-nav-link {
+    display: inline-flex;
+    width: fit-content;
+    min-height: 40px;
+    margin-top: 10px;
+    padding: 9px 18px;
+    border: 1px solid var(--white);
+    border-radius: 6px;
+    color: var(--white);
+    background-color: transparent;
+  }
+
+  .nav-links .admin-nav-link:hover {
+    color: var(--deep-blue);
+    background-color: var(--white);
+    border-color: var(--white);
   }
 
   .nav-whatsapp {
@@ -1306,6 +1392,11 @@ section {
 
   .section-heading {
     margin-bottom: 35px;
+  }
+
+  .section-label {
+    font-size: 15px;
+    letter-spacing: 1.5px;
   }
 
   .hero {
@@ -1392,6 +1483,18 @@ section {
       );
   }
 
+  .contact-info {
+    padding: 8px 18px;
+  }
+
+  .contact-info-item {
+    gap: 12px;
+  }
+
+  .contact-form .btn {
+    width: 100%;
+  }
+
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-auto-rows: 160px;
@@ -1469,10 +1572,14 @@ section {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 
-  .reveal {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
     opacity: 1;
     transform: none;
   }
