@@ -2,24 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="NS Traders poster upload and WhatsApp sharing page"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NS Traders | Poster Upload</title>
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --deep-blue: #353ebb;
@@ -35,9 +20,7 @@
       --red: #c93c3c;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       min-height: 100vh;
@@ -208,9 +191,7 @@
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
-      transition:
-        background-color 0.3s ease,
-        transform 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease;
     }
 
     button:hover {
@@ -224,6 +205,22 @@
 
     .add-button:hover {
       background-color: #d3e5f0;
+    }
+
+    .edit-button {
+      color: var(--deep-blue);
+      background-color: var(--white);
+      border: 1px solid var(--deep-blue);
+    }
+
+    .edit-button:hover {
+      background-color: #e5f0f7;
+    }
+
+    .edit-button.is-editing {
+      color: var(--white);
+      background-color: var(--green);
+      border-color: var(--green);
     }
 
     .submit-button {
@@ -242,6 +239,7 @@
       color: var(--red);
       background-color: var(--white);
       font-size: 12px;
+      cursor: pointer;
     }
 
     .remove-button:hover {
@@ -282,52 +280,37 @@
       color: var(--deep-blue);
     }
 
+    .preview-delete-btn {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      background-color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .preview-delete-btn:hover {
+      color: var(--white);
+      background-color: var(--red);
+    }
+
     @media (max-width: 700px) {
-      body {
-        padding: 16px;
-      }
-
-      .admin-card {
-        padding: 22px;
-      }
-
-      .admin-logo {
-        width: 125px;
-        height: 52px;
-      }
-
-      h1 {
-        font-size: 23px;
-      }
-
-      .poster-box {
-        padding: 18px;
-      }
-
-      .poster-box-header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .form-field.full-width {
-        grid-column: auto;
-      }
-
-      .actions {
-        flex-direction: column;
-      }
-
-      .actions button {
-        width: 100%;
-      }
-
-      .remove-button {
-        width: fit-content !important;
-      }
+      body { padding: 16px; }
+      .admin-card { padding: 22px; }
+      .admin-logo { width: 125px; height: 52px; }
+      h1 { font-size: 23px; }
+      .poster-box { padding: 18px; }
+      .poster-box-header { align-items: flex-start; flex-direction: column; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-field.full-width { grid-column: auto; }
+      .actions { flex-direction: column; }
+      .actions button { width: 100%; }
+      .remove-button { width: fit-content !important; }
     }
   </style>
 </head>
@@ -338,587 +321,292 @@
 
     <div class="admin-header">
 
-      <img
-        class="admin-logo"
-        src="images/ns-logo.png"
-        alt="NS Traders Logo"
-      >
+      <img class="admin-logo" src="images/ns-logo.png" alt="NS Traders Logo">
 
-      <h1>
-        NS Traders Poster Details
-      </h1>
+      <h1>NS Traders Poster Management</h1>
 
       <p class="intro">
-        Choose a poster image, add details and save to website.
+        Add, edit or remove posters. Changes will be saved to the website.
       </p>
 
     </div>
 
-    <div id="posterList">
-
-      <section class="poster-box">
-
-        <div class="poster-box-header">
-
-          <h2 class="poster-box-title">
-            Poster 1
-          </h2>
-
-          <button
-            class="remove-button"
-            type="button"
-          >
-            Remove
-          </button>
-
-        </div>
-
-        <div class="form-grid">
-
-          <div class="form-field">
-
-            <label>
-              Poster Title
-            </label>
-
-            <input
-              class="poster-title"
-              type="text"
-              placeholder="Summer Offer"
-            >
-
-          </div>
-
-          <div class="form-field">
-
-            <label>
-              Category
-            </label>
-
-            <select class="poster-category">
-
-              <option value="Product">
-                Product
-              </option>
-
-              <option value="Service">
-                Service
-              </option>
-
-              <option value="Offer">
-                Offer
-              </option>
-
-              <option value="Announcement">
-                Announcement
-              </option>
-
-            </select>
-
-          </div>
-
-          <div class="form-field full-width">
-
-            <label>
-              Choose Image
-            </label>
-
-            <input
-              class="poster-image-input"
-              type="file"
-              accept="image/png, image/jpeg, image/webp"
-            >
-
-            <div class="image-preview-wrapper">
-
-              <img
-                class="image-preview"
-                src=""
-                alt="Selected poster preview"
-              >
-
-              <p class="file-name"></p>
-
-            </div>
-
-          </div>
-
-          <div class="form-field full-width">
-
-            <label>
-              Offer / Details
-            </label>
-
-            <textarea
-              class="poster-details"
-              placeholder="Write poster details"
-            ></textarea>
-
-          </div>
-
-          <div class="form-field">
-
-            <label>
-              Start Date
-            </label>
-
-            <input
-              class="poster-start-date"
-              type="date"
-            >
-
-          </div>
-
-          <div class="form-field">
-
-            <label>
-              End Date
-            </label>
-
-            <input
-              class="poster-end-date"
-              type="date"
-            >
-
-          </div>
-
-          <div class="form-field">
-
-            <label>
-              Status
-            </label>
-
-            <select class="poster-status">
-
-              <option value="Active">
-                Active
-              </option>
-
-              <option value="Inactive">
-                Inactive
-              </option>
-
-            </select>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </div>
+    <div id="posterList"></div>
 
     <div class="actions">
 
-      <button
-        id="addPosterButton"
-        class="add-button"
-        type="button"
-      >
+      <button id="addPosterButton" class="add-button" type="button">
         + Add Poster
       </button>
 
-      <button
-        id="submitPosterButton"
-        class="submit-button"
-        type="button"
-      >
+      <button id="submitPosterButton" class="submit-button" type="button">
         Submit Posters
       </button>
 
     </div>
 
-    <p
-      id="status"
-      class="status"
-      aria-live="polite"
-    ></p>
+    <p id="status" class="status" aria-live="polite"></p>
+
+    <div style="margin-top: 40px; padding-top: 30px; border-top: 2px solid var(--border-gray);">
+      <h3 style="color: var(--deep-blue); margin-bottom: 20px; text-align: center;">
+        Preview - How it looks on main page
+      </h3>
+      <div id="adminPreview" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;"></div>
+    </div>
 
     <p class="note">
       The selected image is previewed in this browser. Posters will be saved 
       to browser storage and displayed on the main website.
     </p>
 
-    <a
-      href="index.html"
-      class="home-link"
-    >
-      ← Back to Website
-    </a>
+    <a href="index.html" class="home-link">← Back to Website</a>
 
   </main>
 
   <script>
     "use strict";
 
-    const posterList =
-      document.getElementById(
-        "posterList"
-      );
+    const posterList = document.getElementById("posterList");
+    const addPosterButton = document.getElementById("addPosterButton");
+    const submitPosterButton = document.getElementById("submitPosterButton");
+    const statusElement = document.getElementById("status");
 
-    const addPosterButton =
-      document.getElementById(
-        "addPosterButton"
-      );
+    function loadExistingPosters() {
+      const savedPosters = localStorage.getItem('nsPosters');
+      
+      if (!savedPosters) {
+        posterList.innerHTML = '';
+        posterList.appendChild(createPosterBox());
+        updatePosterNumbers();
+        return;
+      }
+      
+      const posters = JSON.parse(savedPosters);
+      
+      if (posters.length === 0) {
+        posterList.innerHTML = '';
+        posterList.appendChild(createPosterBox());
+        updatePosterNumbers();
+        return;
+      }
+      
+      posterList.innerHTML = '';
+      
+      posters.forEach(function(poster) {
+        const posterBox = createPosterBox();
+        posterList.appendChild(posterBox);
+        
+        const titleInput = posterBox.querySelector('.poster-title');
+        const categorySelect = posterBox.querySelector('.poster-category');
+        const detailsTextarea = posterBox.querySelector('.poster-details');
+        const startDateInput = posterBox.querySelector('.poster-start-date');
+        const endDateInput = posterBox.querySelector('.poster-end-date');
+        const statusSelect = posterBox.querySelector('.poster-status');
+        const previewImage = posterBox.querySelector('.image-preview');
+        const previewWrapper = posterBox.querySelector('.image-preview-wrapper');
+        const fileName = posterBox.querySelector('.file-name');
+        
+        titleInput.value = poster.title;
+        categorySelect.value = poster.category;
+        detailsTextarea.value = poster.details;
+        startDateInput.value = poster.startDate;
+        endDateInput.value = poster.endDate;
+        statusSelect.value = poster.status;
+        
+        if (poster.image) {
+          previewImage.src = poster.image;
+          fileName.textContent = 'Loaded from storage';
+          previewWrapper.classList.add('show');
+        }
 
-    const submitPosterButton =
-      document.getElementById(
-        "submitPosterButton"
-      );
+        setPosterBoxLocked(posterBox, true);
+      });
+      
+      updatePosterNumbers();
+    }
 
-    const statusElement =
-      document.getElementById(
-        "status"
-      );
+    function setPosterBoxLocked(posterBox, locked) {
+      const titleInput = posterBox.querySelector(".poster-title");
+      const categorySelect = posterBox.querySelector(".poster-category");
+      const imageInput = posterBox.querySelector(".poster-image-input");
+      const detailsTextarea = posterBox.querySelector(".poster-details");
+      const startDateInput = posterBox.querySelector(".poster-start-date");
+      const endDateInput = posterBox.querySelector(".poster-end-date");
+      const statusSelect = posterBox.querySelector(".poster-status");
+      const editButton = posterBox.querySelector(".edit-button");
+
+      if (titleInput) titleInput.readOnly = locked;
+      if (detailsTextarea) detailsTextarea.readOnly = locked;
+      if (startDateInput) startDateInput.disabled = locked;
+      if (endDateInput) endDateInput.disabled = locked;
+      if (categorySelect) categorySelect.disabled = locked;
+      if (statusSelect) statusSelect.disabled = locked;
+      if (imageInput) imageInput.disabled = locked;
+
+      posterBox.dataset.locked = locked ? "true" : "false";
+
+      if (editButton) {
+        editButton.textContent = locked ? "Edit" : "Editing...";
+        editButton.classList.toggle("is-editing", !locked);
+      }
+    }
+
+    function toggleEditPoster(event) {
+      const editButton = event.target.closest(".edit-button");
+      if (!editButton) return;
+
+      const posterBox = editButton.closest(".poster-box");
+      if (!posterBox) return;
+
+      const isLocked = posterBox.dataset.locked === "true";
+      setPosterBoxLocked(posterBox, !isLocked);
+
+      if (isLocked) {
+        const titleInput = posterBox.querySelector(".poster-title");
+        if (titleInput) titleInput.focus();
+        statusElement.textContent = "Editing enabled — make your changes and click Submit Posters to save.";
+        statusElement.className = "status";
+      }
+    }
 
     function updatePosterNumbers() {
-      const posterBoxes =
-        posterList.querySelectorAll(
-          ".poster-box"
-        );
-
-      posterBoxes.forEach(
-        function (box, index) {
-          const title =
-            box.querySelector(
-              ".poster-box-title"
-            );
-
-          if (title) {
-            title.textContent =
-              "Poster " +
-              (index + 1);
-          }
+      const posterBoxes = posterList.querySelectorAll(".poster-box");
+      posterBoxes.forEach(function (box, index) {
+        const title = box.querySelector(".poster-box-title");
+        if (title) {
+          title.textContent = "Poster " + (index + 1);
         }
-      );
+      });
     }
 
     function createPosterBox() {
-      const posterBox =
-        document.createElement(
-          "section"
-        );
-
-      posterBox.className =
-        "poster-box";
-
+      const posterBox = document.createElement("section");
+      posterBox.className = "poster-box";
       posterBox.innerHTML = `
         <div class="poster-box-header">
-
-          <h2 class="poster-box-title">
-            Poster
-          </h2>
-
-          <button
-            class="remove-button"
-            type="button"
-          >
-            Remove
-          </button>
-
+          <h2 class="poster-box-title">Poster</h2>
+          <div style="display: flex; gap: 8px;">
+            <button class="edit-button" type="button">Edit</button>
+            <button class="remove-button" type="button">Delete</button>
+          </div>
         </div>
-
         <div class="form-grid">
-
           <div class="form-field">
-
-            <label>
-              Poster Title
-            </label>
-
-            <input
-              class="poster-title"
-              type="text"
-              placeholder="Poster title"
-            >
-
+            <label>Poster Title</label>
+            <input class="poster-title" type="text" placeholder="Poster title">
           </div>
-
           <div class="form-field">
-
-            <label>
-              Category
-            </label>
-
+            <label>Category</label>
             <select class="poster-category">
-
-              <option value="Product">
-                Product
-              </option>
-
-              <option value="Service">
-                Service
-              </option>
-
-              <option value="Offer">
-                Offer
-              </option>
-
-              <option value="Announcement">
-                Announcement
-              </option>
-
+              <option value="Product">Product</option>
+              <option value="Service">Service</option>
+              <option value="Offer">Offer</option>
+              <option value="Announcement">Announcement</option>
             </select>
-
           </div>
-
           <div class="form-field full-width">
-
-            <label>
-              Choose Image
-            </label>
-
-            <input
-              class="poster-image-input"
-              type="file"
-              accept="image/png, image/jpeg, image/webp"
-            >
-
+            <label>Choose Image</label>
+            <input class="poster-image-input" type="file" accept="image/png, image/jpeg, image/webp">
             <div class="image-preview-wrapper">
-
-              <img
-                class="image-preview"
-                src=""
-                alt="Selected poster preview"
-              >
-
+              <img class="image-preview" src="" alt="Selected poster preview">
               <p class="file-name"></p>
-
             </div>
-
           </div>
-
           <div class="form-field full-width">
-
-            <label>
-              Offer / Details
-            </label>
-
-            <textarea
-              class="poster-details"
-              placeholder="Write poster details"
-            ></textarea>
-
+            <label>Offer / Details</label>
+            <textarea class="poster-details" placeholder="Write poster details"></textarea>
           </div>
-
           <div class="form-field">
-
-            <label>
-              Start Date
-            </label>
-
-            <input
-              class="poster-start-date"
-              type="date"
-            >
-
+            <label>Start Date</label>
+            <input class="poster-start-date" type="date">
           </div>
-
           <div class="form-field">
-
-            <label>
-              End Date
-            </label>
-
-            <input
-              class="poster-end-date"
-              type="date"
-            >
-
+            <label>End Date</label>
+            <input class="poster-end-date" type="date">
           </div>
-
           <div class="form-field">
-
-            <label>
-              Status
-            </label>
-
+            <label>Status</label>
             <select class="poster-status">
-
-              <option value="Active">
-                Active
-              </option>
-
-              <option value="Inactive">
-                Inactive
-              </option>
-
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
             </select>
-
           </div>
-
         </div>
       `;
-
       return posterBox;
     }
 
     function addPoster() {
-      posterList.appendChild(
-        createPosterBox()
-      );
-
+      posterList.appendChild(createPosterBox());
       updatePosterNumbers();
     }
 
     function removePoster(event) {
-      const removeButton =
-        event.target.closest(
-          ".remove-button"
-        );
-
-      if (!removeButton) {
-        return;
-      }
-
-      const allPosters =
-        posterList.querySelectorAll(
-          ".poster-box"
-        );
-
+      const removeButton = event.target.closest(".remove-button");
+      if (!removeButton) return;
+      
+      const allPosters = posterList.querySelectorAll(".poster-box");
       if (allPosters.length <= 1) {
-        statusElement.textContent =
-          "At least one poster is required.";
-
-        statusElement.className =
-          "status error";
-
+        statusElement.textContent = "At least one poster is required.";
+        statusElement.className = "status error";
         return;
       }
-
-      removeButton
-        .closest(".poster-box")
-        .remove();
-
+      
+      removeButton.closest(".poster-box").remove();
       updatePosterNumbers();
-
-      statusElement.textContent =
-        "";
-
-      statusElement.className =
-        "status";
+      statusElement.textContent = "";
+      statusElement.className = "status";
     }
 
     function previewSelectedImage(event) {
-      const input =
-        event.target;
-
-      if (
-        !input.classList.contains(
-          "poster-image-input"
-        )
-      ) {
-        return;
-      }
-
-      const file =
-        input.files &&
-        input.files[0];
-
-      const posterBox =
-        input.closest(
-          ".poster-box"
-        );
-
-      if (!posterBox) {
-        return;
-      }
-
-      const previewWrapper =
-        posterBox.querySelector(
-          ".image-preview-wrapper"
-        );
-
-      const previewImage =
-        posterBox.querySelector(
-          ".image-preview"
-        );
-
-      const fileName =
-        posterBox.querySelector(
-          ".file-name"
-        );
-
+      const input = event.target;
+      if (!input.classList.contains("poster-image-input")) return;
+      
+      const file = input.files && input.files[0];
+      const posterBox = input.closest(".poster-box");
+      if (!posterBox) return;
+      
+      const previewWrapper = posterBox.querySelector(".image-preview-wrapper");
+      const previewImage = posterBox.querySelector(".image-preview");
+      const fileName = posterBox.querySelector(".file-name");
+      
       if (!file) {
-        previewWrapper.classList.remove(
-          "show"
-        );
-
-        previewImage.src =
-          "";
-
-        fileName.textContent =
-          "";
-
+        previewWrapper.classList.remove("show");
+        previewImage.src = "";
+        fileName.textContent = "";
         return;
       }
-
-      if (
-        !file.type.startsWith(
-          "image/"
-        )
-      ) {
-        input.value =
-          "";
-
-        previewWrapper.classList.remove(
-          "show"
-        );
-
-        statusElement.textContent =
-          "Please choose an image file.";
-
-        statusElement.className =
-          "status error";
-
+      
+      if (!file.type.startsWith("image/")) {
+        input.value = "";
+        previewWrapper.classList.remove("show");
+        statusElement.textContent = "Please choose an image file.";
+        statusElement.className = "status error";
         return;
       }
-
-      const reader =
-        new FileReader();
-
-      reader.addEventListener(
-        "load",
-        function () {
-          previewImage.src =
-            reader.result;
-
-          fileName.textContent =
-            "Selected file: " +
-            file.name;
-
-          previewWrapper.classList.add(
-            "show"
-          );
-
-          statusElement.textContent =
-            "Image selected successfully.";
-
-          statusElement.className =
-            "status";
-        }
-      );
-
-      reader.addEventListener(
-        "error",
-        function () {
-          statusElement.textContent =
-            "Could not preview this image.";
-
-          statusElement.className =
-            "status error";
-        }
-      );
-
+      
+      const reader = new FileReader();
+      reader.addEventListener("load", function () {
+        previewImage.src = reader.result;
+        fileName.textContent = "Selected file: " + file.name;
+        previewWrapper.classList.add("show");
+        statusElement.textContent = "Image selected successfully.";
+        statusElement.className = "status";
+      });
+      
+      reader.addEventListener("error", function () {
+        statusElement.textContent = "Could not preview this image.";
+        statusElement.className = "status error";
+      });
+      
       reader.readAsDataURL(file);
     }
 
-    // Save posters to localStorage
     function submitPosters() {
       const posterBoxes = posterList.querySelectorAll(".poster-box");
       const postersData = [];
 
-      posterBoxes.forEach(function(box, index) {
+      posterBoxes.forEach(function(box) {
         const title = box.querySelector(".poster-title").value.trim();
         const category = box.querySelector(".poster-category").value;
         const details = box.querySelector(".poster-details").value.trim();
@@ -926,17 +614,14 @@
         const endDate = box.querySelector(".poster-end-date").value;
         const status = box.querySelector(".poster-status").value;
         
-        const imageInput = box.querySelector(".poster-image-input");
-        const imageFile = imageInput.files && imageInput.files[0];
         const previewImage = box.querySelector(".image-preview");
-        
         let imageData = null;
         if (previewImage && previewImage.src && previewImage.src.startsWith('data:image')) {
           imageData = previewImage.src;
         }
         
         postersData.push({
-          id: Date.now() + index,
+          id: Date.now() + Math.random(),
           title: title || "Untitled Poster",
           category: category,
           details: details,
@@ -952,36 +637,108 @@
       statusElement.textContent = "Posters saved successfully! Check main page.";
       statusElement.className = "status";
       
-      // Clear form after 2 seconds
       setTimeout(() => {
-        posterList.innerHTML = '';
-        posterList.appendChild(createPosterBox());
-        updatePosterNumbers();
+        loadExistingPosters();
+        updateAdminPreview();
         statusElement.textContent = "";
       }, 2000);
     }
 
-    addPosterButton.addEventListener(
-      "click",
-      addPoster
-    );
+    function updateAdminPreview() {
+      const previewContainer = document.getElementById('adminPreview');
+      if (!previewContainer) return;
+      
+      const savedPosters = localStorage.getItem('nsPosters');
+      if (!savedPosters) {
+        previewContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No posters uploaded yet.</p>';
+        return;
+      }
+      
+      const posters = JSON.parse(savedPosters);
+      if (posters.length === 0) {
+        previewContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No posters uploaded yet.</p>';
+        return;
+      }
+      
+      let previewHTML = '';
+      posters.forEach(function(poster, index) {
+        const categoryColor = poster.category === 'Offer' ? '#128c45' : poster.category === 'Product' ? '#353ebb' : poster.category === 'Service' ? '#0b2a4a' : '#170433';
+        const imageSrc = poster.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23dce5ec" width="400" height="300"/%3E%3Ctext fill="%236b7785" font-family="Arial" font-size="20" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
+        
+        previewHTML += '<article data-poster-index="' + index + '" style="overflow: hidden; border: 1px solid var(--border-gray); border-radius: 10px; background-color: var(--white); box-shadow: 0 5px 18px rgba(6, 26, 51, 0.04);"><div style="position: relative; aspect-ratio: 4 / 3; overflow: hidden; background-color: #dce5ec;"><img src="' + imageSrc + '" alt="' + poster.title + '" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="padding: 24px;"><h3 style="margin-bottom: 10px; color: var(--deep-blue); font-size: 20px; font-weight: 700;">' + poster.title + '</h3><span style="display: inline-block; margin-bottom: 12px; padding: 5px 12px; border-radius: 20px; color: var(--white); background-color: ' + categoryColor + '; font-size: 11px; font-weight: 600; text-transform: uppercase;">' + poster.category + '</span><p style="margin-bottom: 15px; color: var(--text-muted); font-size: 13px; line-height: 1.6;">' + poster.details + '</p><div style="padding-top: 15px; border-top: 1px solid var(--border-gray); color: var(--gray-dark); font-size: 12px;">' + (poster.startDate ? 'From: ' + poster.startDate : '') + (poster.endDate ? ' | To: ' + poster.endDate : '') + '</div><div style="display: flex; gap: 8px; margin-top: 10px;"><button class="preview-edit-btn" data-index="' + index + '" style="flex: 1; padding: 8px; border: 1px solid var(--deep-blue); color: var(--deep-blue); background-color: var(--white); font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 4px;">Edit</button><button class="preview-delete-btn" data-index="' + index + '" style="flex: 1; margin-top: 0;">Delete from Preview</button></div></div></article>';
+      });
+      
+      previewContainer.innerHTML = previewHTML;
+      
+      // Add delete functionality to preview buttons
+      const previewDeleteButtons = previewContainer.querySelectorAll('.preview-delete-btn');
+      previewDeleteButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const indexToDelete = parseInt(this.getAttribute('data-index'));
+          deletePosterFromPreview(indexToDelete);
+        });
+      });
 
-    posterList.addEventListener(
-      "click",
-      removePoster
-    );
+      // Add edit functionality to preview buttons
+      const previewEditButtons = previewContainer.querySelectorAll('.preview-edit-btn');
+      previewEditButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          const indexToEdit = parseInt(this.getAttribute('data-index'));
+          editPosterFromPreview(indexToEdit);
+        });
+      });
+    }
 
-    posterList.addEventListener(
-      "change",
-      previewSelectedImage
-    );
+    function editPosterFromPreview(index) {
+      const posterBoxes = posterList.querySelectorAll(".poster-box");
+      const targetBox = posterBoxes[index];
+      if (!targetBox) return;
 
-    submitPosterButton.addEventListener(
-      "click",
-      submitPosters
-    );
+      targetBox.scrollIntoView({ behavior: "smooth", block: "center" });
+      targetBox.style.border = "2px solid var(--deep-blue)";
+      setTimeout(function () {
+        targetBox.style.border = "";
+      }, 2000);
 
-    updatePosterNumbers();
+      const titleInput = targetBox.querySelector(".poster-title");
+      if (titleInput) titleInput.focus();
+
+      statusElement.textContent = "Editing Poster " + (index + 1) + " — make your changes above and click Submit Posters to save.";
+      statusElement.className = "status";
+    }
+
+    function deletePosterFromPreview(index) {
+      const savedPosters = localStorage.getItem('nsPosters');
+      if (!savedPosters) return;
+      
+      const posters = JSON.parse(savedPosters);
+      if (posters.length <= 1) {
+        statusElement.textContent = "At least one poster is required.";
+        statusElement.className = "status error";
+        return;
+      }
+      
+      posters.splice(index, 1);
+      localStorage.setItem('nsPosters', JSON.stringify(posters));
+      
+      statusElement.textContent = "Poster deleted!";
+      statusElement.className = "status";
+      
+      setTimeout(() => {
+        loadExistingPosters();
+        updateAdminPreview();
+        statusElement.textContent = "";
+      }, 1500);
+    }
+
+    addPosterButton.addEventListener("click", addPoster);
+    posterList.addEventListener("click", removePoster);
+    posterList.addEventListener("click", toggleEditPoster);
+    posterList.addEventListener("change", previewSelectedImage);
+    submitPosterButton.addEventListener("click", submitPosters);
+
+    loadExistingPosters();
+    updateAdminPreview();
   </script>
 
 </body>
