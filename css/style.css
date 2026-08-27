@@ -1,36 +1,22 @@
 :root {
   --font-main: "Poppins", Arial, sans-serif;
-
-  /* Main Theme */
   --deep-blue: #353ebb;
   --navy-blue: #0b2a4a;
   --blue: #170433;
   --blue-light: #eaf3f9;
-
-  /* Neutral Theme */
   --white: #ffffff;
   --gray: #6b7785;
   --gray-dark: #43505c;
   --light-gray: #f3f6f8;
   --border-gray: #d9e1e8;
-
-  /* Text */
   --text-dark: #14202b;
   --text-muted: #596675;
   --text-on-dark: #ffffff;
   --text-on-dark-muted: #d9e4ed;
-
-  /* WhatsApp */
   --whatsapp: #128c45;
   --whatsapp-dark: #0b6f36;
-
-  /* Shadow */
   --shadow: 0 18px 45px rgba(6, 26, 51, 0.14);
 }
-
-/* =========================
-   RESET
-========================= */
 
 *,
 *::before,
@@ -103,10 +89,6 @@ section {
   scroll-margin-top: 85px;
 }
 
-/* =========================
-   COMMON
-========================= */
-
 .container {
   width: min(1120px, calc(100% - 40px));
   margin-inline: auto;
@@ -158,10 +140,6 @@ section {
   line-height: 1.6;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-
 .btn {
   display: inline-flex;
   min-height: 48px;
@@ -174,18 +152,13 @@ section {
   font-weight: 600;
   text-align: center;
   cursor: pointer;
-  transition:
-    transform 0.3s ease,
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 .btn:hover {
   transform: translateY(-3px);
 }
 
-/* Primary Button */
 .btn-primary {
   color: var(--deep-blue);
   background-color: var(--white);
@@ -198,7 +171,6 @@ section {
   border-color: var(--blue-light);
 }
 
-/* WhatsApp Button */
 .btn-whatsapp,
 .btn-contact-whatsapp {
   color: var(--white);
@@ -213,7 +185,6 @@ section {
   border-color: var(--whatsapp-dark);
 }
 
-/* White Button */
 .btn-light {
   color: var(--deep-blue);
   background-color: var(--white);
@@ -226,7 +197,6 @@ section {
   border-color: var(--blue-light);
 }
 
-/* Outline Button */
 .btn-outline {
   color: var(--deep-blue);
   border-color: var(--deep-blue);
@@ -244,10 +214,6 @@ section {
   color: var(--blue);
   font-weight: 600;
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .header {
   position: fixed;
@@ -297,9 +263,7 @@ section {
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
-  transition:
-    color 0.3s ease,
-    background-color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .nav-links a:hover {
@@ -307,7 +271,6 @@ section {
   background-color: var(--blue-light);
 }
 
-/* Admin Last Button */
 .nav-links .admin-nav-link {
   display: inline-flex;
   min-height: 36px;
@@ -320,11 +283,7 @@ section {
   background-color: var(--deep-blue);
   font-size: 12px;
   font-weight: 700;
-  transition:
-    color 0.3s ease,
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-links .admin-nav-link:hover {
@@ -346,9 +305,7 @@ section {
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
-  transition:
-    background-color 0.3s ease,
-    transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-whatsapp:hover {
@@ -369,10 +326,6 @@ section {
   cursor: pointer;
 }
 
-/* =========================
-   HERO
-========================= */
-
 .hero {
   position: relative;
   min-height: min(780px, 100svh);
@@ -380,10 +333,7 @@ section {
   align-items: center;
   overflow: hidden;
   color: var(--white);
-  background:
-    var(--deep-blue)
-    url("../images/hero-poster.jpg")
-    center / cover no-repeat;
+  background: var(--deep-blue) url("../images/hero-poster.jpg") center / cover no-repeat;
 }
 
 .hero-video {
@@ -477,10 +427,6 @@ section {
   font-size: 13px;
 }
 
-/* =========================
-   ABOUT
-========================= */
-
 .about-section {
   background-color: var(--light-gray);
 }
@@ -504,10 +450,6 @@ section {
   line-height: 1.8;
 }
 
-/* =========================
-   PRODUCTS
-========================= */
-
 .products-section {
   background-color: var(--white);
 }
@@ -525,9 +467,7 @@ section {
   border-radius: 8px;
   background-color: var(--white);
   box-shadow: 0 5px 18px rgba(6, 26, 51, 0.04);
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .product-card:hover {
@@ -606,10 +546,7 @@ section {
   background-color: var(--white);
   font-size: 13px;
   font-weight: 600;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .product-whatsapp:hover {
@@ -617,10 +554,6 @@ section {
   background-color: var(--deep-blue);
   transform: translateY(-2px);
 }
-
-/* =========================
-   SERVICES
-========================= */
 
 .services-section {
   color: var(--white);
@@ -656,9 +589,7 @@ section {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  transition:
-    transform 0.4s ease,
-    box-shadow 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .service-card:hover {
@@ -692,14 +623,7 @@ section {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(6, 26, 51, 0.06) 0%,
-      rgba(6, 26, 51, 0.18) 38%,
-      rgba(6, 26, 51, 0.74) 76%,
-      rgba(6, 26, 51, 0.9) 100%
-    );
+  background: linear-gradient(180deg, rgba(6, 26, 51, 0.06) 0%, rgba(6, 26, 51, 0.18) 38%, rgba(6, 26, 51, 0.74) 76%, rgba(6, 26, 51, 0.9) 100%);
 }
 
 .service-content {
@@ -734,10 +658,6 @@ section {
   text-shadow: none;
 }
 
-/* =========================
-   FEATURES
-========================= */
-
 .features-section {
   background-color: var(--white);
 }
@@ -754,10 +674,7 @@ section {
   border-top: 3px solid var(--blue);
   border-radius: 10px;
   background-color: var(--light-gray);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background-color 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
 }
 
 .feature-card:hover {
@@ -780,10 +697,6 @@ section {
   line-height: 1.65;
 }
 
-/* =========================
-   PROCESS
-========================= */
-
 .process-section {
   background-color: var(--light-gray);
 }
@@ -799,9 +712,7 @@ section {
   border: 1px solid var(--border-gray);
   border-radius: 10px;
   background-color: var(--white);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .process-card:hover {
@@ -821,10 +732,6 @@ section {
   font-size: 14px;
   line-height: 1.65;
 }
-
-/* =========================
-   GALLERY
-========================= */
 
 .gallery-section {
   background-color: var(--white);
@@ -860,10 +767,6 @@ section {
   transform: scale(1.08);
 }
 
-/* =========================
-   TESTIMONIALS
-========================= */
-
 .testimonials-section {
   background-color: var(--light-gray);
 }
@@ -879,9 +782,7 @@ section {
   border: 1px solid var(--border-gray);
   border-radius: 10px;
   background-color: var(--white);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .testimonial-card:hover {
@@ -917,10 +818,6 @@ section {
   font-size: 13px;
 }
 
-/* =========================
-   POSTERS SECTION
-========================= */
-
 .posters-section {
   background-color: var(--white);
 }
@@ -937,9 +834,7 @@ section {
   border-radius: 10px;
   background-color: var(--white);
   box-shadow: 0 5px 18px rgba(6, 26, 51, 0.04);
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .poster-display-card:hover {
@@ -1014,10 +909,6 @@ section {
   }
 }
 
-/* =========================
-   CONTACT
-========================= */
-
 .contact-section {
   background-color: var(--light-gray);
 }
@@ -1082,7 +973,6 @@ section {
   gap: 12px;
 }
 
-/* Contact Form */
 .contact-form {
   display: grid;
   gap: 10px;
@@ -1156,10 +1046,6 @@ section {
   border: 0;
 }
 
-/* =========================
-   FOOTER
-========================= */
-
 .footer {
   padding-top: 65px;
   color: var(--text-on-dark-muted);
@@ -1218,10 +1104,6 @@ section {
   margin-bottom: 0;
 }
 
-/* =========================
-   LIGHTBOX
-========================= */
-
 .lightbox {
   position: fixed;
   inset: 0;
@@ -1255,10 +1137,6 @@ section {
   cursor: pointer;
 }
 
-/* =========================
-   FLOATING ACTIONS
-========================= */
-
 .floating-actions {
   position: fixed;
   right: 18px;
@@ -1277,9 +1155,7 @@ section {
   justify-content: center;
   border-radius: 50%;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .float-btn:hover {
@@ -1304,16 +1180,10 @@ section {
   background-color: var(--navy-blue);
 }
 
-/* =========================
-   REVEAL ANIMATION
-========================= */
-
 .reveal {
   opacity: 0;
   transform: translateY(35px);
-  transition:
-    opacity 0.8s ease,
-    transform 0.8s ease;
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .reveal.show {
@@ -1345,7 +1215,7 @@ section {
 }
 
 .features-grid .reveal:nth-child(3),
-process-grid .reveal:nth-child(3),
+.process-grid .reveal:nth-child(3),
 .testimonial-grid .reveal:nth-child(3) {
   transition-delay: 0.2s;
 }
@@ -1354,10 +1224,6 @@ process-grid .reveal:nth-child(3),
 .process-grid .reveal:nth-child(4) {
   transition-delay: 0.3s;
 }
-
-/* =========================
-   TABLET
-========================= */
 
 @media (max-width: 1100px) {
   .navbar {
@@ -1386,10 +1252,6 @@ process-grid .reveal:nth-child(3),
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
-/* =========================
-   MOBILE NAVIGATION
-========================= */
 
 @media (max-width: 850px) {
   .navbar {
@@ -1473,10 +1335,6 @@ process-grid .reveal:nth-child(3),
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
-/* =========================
-   SMALL MOBILE
-========================= */
 
 @media (max-width: 600px) {
   .container {
@@ -1571,13 +1429,7 @@ process-grid .reveal:nth-child(3),
   }
 
   .service-overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(6, 26, 51, 0.08) 0%,
-        rgba(6, 26, 51, 0.25) 40%,
-        rgba(6, 26, 51, 0.84) 100%
-      );
+    background: linear-gradient(180deg, rgba(6, 26, 51, 0.08) 0%, rgba(6, 26, 51, 0.25) 40%, rgba(6, 26, 51, 0.84) 100%);
   }
 
   .contact-info {
@@ -1629,10 +1481,6 @@ process-grid .reveal:nth-child(3),
   }
 }
 
-/* =========================
-   VERY SMALL MOBILE
-========================= */
-
 @media (max-width: 380px) {
   .brand img {
     width: 120px;
@@ -1655,10 +1503,6 @@ process-grid .reveal:nth-child(3),
     grid-auto-rows: 220px;
   }
 }
-
-/* =========================
-   REDUCED MOTION
-========================= */
 
 @media (prefers-reduced-motion: reduce) {
   html {
