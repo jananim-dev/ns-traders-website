@@ -2,33 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-  <title>Admin Test</title>
-</head>
-
-<body>
-
-  <h1>
-    Admin Page Working
-  </h1>
-
-  <p>
-    If you see this page, Admin path is correct.
-  </p>
-<a
-  href="index.html"
-  class="home-link"
->
-  ← Back to Website
-</a>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
 
   <meta
     name="viewport"
@@ -253,13 +226,13 @@
       background-color: #d3e5f0;
     }
 
-    .send-button {
+    .submit-button {
       color: var(--white);
-      background-color: var(--green);
+      background-color: var(--deep-blue);
     }
 
-    .send-button:hover {
-      background-color: var(--green-dark);
+    .submit-button:hover {
+      background-color: var(--navy-blue);
     }
 
     .remove-button {
@@ -376,8 +349,7 @@
       </h1>
 
       <p class="intro">
-        Choose a poster image, add details and send everything to the owner's
-        WhatsApp.
+        Choose a poster image, add details and save to website.
       </p>
 
     </div>
@@ -547,11 +519,11 @@
       </button>
 
       <button
-        id="sendPosterButton"
-        class="send-button"
+        id="submitPosterButton"
+        class="submit-button"
         type="button"
       >
-        Send to WhatsApp
+        Submit Posters
       </button>
 
     </div>
@@ -563,9 +535,8 @@
     ></p>
 
     <p class="note">
-      The selected image is previewed in this browser. Since no storage
-      service is connected, the image itself is not permanently uploaded.
-      The selected file name and poster details are sent through WhatsApp.
+      The selected image is previewed in this browser. Posters will be saved 
+      to browser storage and displayed on the main website.
     </p>
 
     <a
@@ -580,25 +551,6 @@
   <script>
     "use strict";
 
-    /*
-    ==============================================
-    OWNER WHATSAPP NUMBER
-    ==============================================
-
-    Replace with actual WhatsApp number.
-
-    India example:
-    919876543210
-
-    Do not use:
-    +91 98765 43210
-    91-98765-43210
-    ==============================================
-    */
-
-    const whatsappNumber =
-      "91XXXXXXXXXX";
-
     const posterList =
       document.getElementById(
         "posterList"
@@ -609,22 +561,15 @@
         "addPosterButton"
       );
 
-    const sendPosterButton =
+    const submitPosterButton =
       document.getElementById(
-        "sendPosterButton"
+        "submitPosterButton"
       );
 
     const statusElement =
       document.getElementById(
         "status"
       );
-
-    function isNumberReady() {
-      return (
-        whatsappNumber !==
-        "91XXXXXXXXXX"
-      );
-    }
 
     function updatePosterNumbers() {
       const posterBoxes =
@@ -968,133 +913,52 @@
       reader.readAsDataURL(file);
     }
 
-    function getPosterMessage() {
-      const posterBoxes =
-        posterList.querySelectorAll(
-          ".poster-box"
-        );
+    // Save posters to localStorage
+    function submitPosters() {
+      const posterBoxes = posterList.querySelectorAll(".poster-box");
+      const postersData = [];
 
-      let message =
-        "Hello NS Traders,\n\n" +
-        "Poster Details\n" +
-        "====================\n\n";
-
-      posterBoxes.forEach(
-        function (box, index) {
-          const title =
-            box.querySelector(
-              ".poster-title"
-            ).value.trim() ||
-            "Not provided";
-
-          const category =
-            box.querySelector(
-              ".poster-category"
-            ).value ||
-            "Not provided";
-
-          const details =
-            box.querySelector(
-              ".poster-details"
-            ).value.trim() ||
-            "Not provided";
-
-          const startDate =
-            box.querySelector(
-              ".poster-start-date"
-            ).value ||
-            "Not provided";
-
-          const endDate =
-            box.querySelector(
-              ".poster-end-date"
-            ).value ||
-            "Not provided";
-
-          const status =
-            box.querySelector(
-              ".poster-status"
-            ).value ||
-            "Not provided";
-
-          const imageInput =
-            box.querySelector(
-              ".poster-image-input"
-            );
-
-          const imageFile =
-            imageInput.files &&
-            imageInput.files[0];
-
-          const imageName =
-            imageFile
-              ? imageFile.name
-              : "No image selected";
-
-          message +=
-            "Poster " +
-            (index + 1) +
-            "\n" +
-            "Title: " +
-            title +
-            "\n" +
-            "Category: " +
-            category +
-            "\n" +
-            "Image File: " +
-            imageName +
-            "\n" +
-            "Details: " +
-            details +
-            "\n" +
-            "Start Date: " +
-            startDate +
-            "\n" +
-            "End Date: " +
-            endDate +
-            "\n" +
-            "Status: " +
-            status +
-            "\n\n";
+      posterBoxes.forEach(function(box, index) {
+        const title = box.querySelector(".poster-title").value.trim();
+        const category = box.querySelector(".poster-category").value;
+        const details = box.querySelector(".poster-details").value.trim();
+        const startDate = box.querySelector(".poster-start-date").value;
+        const endDate = box.querySelector(".poster-end-date").value;
+        const status = box.querySelector(".poster-status").value;
+        
+        const imageInput = box.querySelector(".poster-image-input");
+        const imageFile = imageInput.files && imageInput.files[0];
+        const previewImage = box.querySelector(".image-preview");
+        
+        let imageData = null;
+        if (previewImage && previewImage.src && previewImage.src.startsWith('data:image')) {
+          imageData = previewImage.src;
         }
-      );
+        
+        postersData.push({
+          id: Date.now() + index,
+          title: title || "Untitled Poster",
+          category: category,
+          details: details,
+          startDate: startDate,
+          endDate: endDate,
+          status: status,
+          image: imageData
+        });
+      });
 
-      return message;
-    }
-
-    function sendPosterToWhatsApp() {
-      if (!isNumberReady()) {
-        statusElement.textContent =
-          "Please replace the WhatsApp number in this file first.";
-
-        statusElement.className =
-          "status error";
-
-        return;
-      }
-
-      const posterMessage =
-        getPosterMessage();
-
-      const whatsappLink =
-        "https://wa.me/" +
-        whatsappNumber +
-        "?text=" +
-        encodeURIComponent(
-          posterMessage
-        );
-
-      statusElement.textContent =
-        "Opening WhatsApp...";
-
-      statusElement.className =
-        "status";
-
-      window.open(
-        whatsappLink,
-        "_blank",
-        "noopener,noreferrer"
-      );
+      localStorage.setItem('nsPosters', JSON.stringify(postersData));
+      
+      statusElement.textContent = "Posters saved successfully! Check main page.";
+      statusElement.className = "status";
+      
+      // Clear form after 2 seconds
+      setTimeout(() => {
+        posterList.innerHTML = '';
+        posterList.appendChild(createPosterBox());
+        updatePosterNumbers();
+        statusElement.textContent = "";
+      }, 2000);
     }
 
     addPosterButton.addEventListener(
@@ -1112,9 +976,9 @@
       previewSelectedImage
     );
 
-    sendPosterButton.addEventListener(
+    submitPosterButton.addEventListener(
       "click",
-      sendPosterToWhatsApp
+      submitPosters
     );
 
     updatePosterNumbers();
