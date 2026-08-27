@@ -1,6 +1,7 @@
 "use strict";
 
-const whatsappNumber = "91XXXXXXXXXX";
+const whatsappNumber = "918940907122";
+const callNumber = "6380808606";
 const companyName = "NS Traders";
 const generalMessage = "Hello NS Traders, I need details about your construction materials and services.";
 
@@ -145,11 +146,7 @@ const floatCall = document.getElementById("floatCall");
 if (floatCall) {
   floatCall.addEventListener("click", function (event) {
     event.preventDefault();
-    if (!whatsappNumberReady()) {
-      window.alert("Please replace the WhatsApp number in js/script.js first.");
-      return;
-    }
-    window.location.href = "tel:+" + whatsappNumber;
+    window.location.href = "tel:+" + callNumber;
   });
 }
 
