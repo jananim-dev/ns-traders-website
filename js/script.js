@@ -357,11 +357,6 @@ if (menuButton && navLinks) {
     }
   );
 
-  /*
-    Important:
-    Admin link normal navigation.
-    No preventDefault() here.
-  */
   navLinks
     .querySelectorAll("a")
     .forEach(
@@ -719,4 +714,92 @@ const currentYear =
 if (currentYear) {
   currentYear.textContent =
     new Date().getFullYear();
+}
+
+/*
+==================================================
+ADMIN PASSWORD PROTECTION
+==================================================
+*/
+
+const adminButton = document.getElementById('adminButton');
+
+if (adminButton) {
+  adminButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    
+    const password = prompt('Enter Admin Password:');
+    
+    if (password === 'admin123') {
+      window.location.href = 'upload-poster.html';
+    } else if (password !== null) {
+      alert('Wrong password! Please try again.');
+    }
+  });
+}
+
+/*
+==================================================
+LOAD POSTERS FROM LOCALSTORAGE
+==================================================
+*/
+
+function loadPostersOnMainPage() {
+  const postersGrid = document.getElementById('postersGrid');
+  
+  if (!postersGrid) return;
+  
+  const savedPosters = localStorage.getItem('nsPosters');
+  
+  if (!savedPosters) {
+    postersGrid.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">No posters uploaded yet.</p>';
+    return;
+  }
+  
+  const posters = JSON.parse(savedPosters);
+  
+  if (posters.length === 0) {
+    postersGrid.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">No posters uploaded yet.</p>';
+    return;
+  }
+  
+  let postersHTML = '';
+  
+  posters.forEach(function(poster) {
+    const categoryColor = poster.category === 'Offer' ? '#128c45' : 
+                          poster.category === 'Product' ? '#353ebb' : 
+                          poster.category === 'Service' ? '#0b2a4a' : '#170433';
+    
+    const imageSrc = poster.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23dce5ec" width="400" height="300"/%3E%3Ctext fill="%236b7785" font-family="Arial" font-size="20" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
+    
+    postersHTML += `
+      <article class="poster-display-card reveal">
+        <div class="poster-display-image">
+          <img src="${imageSrc}" alt="${poster.title}">
+        </div>
+        <div class="poster-display-content">
+          <h3 class="poster-display-title">${poster.title}</h3>
+          <span class="poster-display-category" style="background-color: ${categoryColor}">${poster.category}</span>
+          <p class="poster-display-details">${poster.details}</p>
+          <div class="poster-display-dates">
+            ${poster.startDate ? 'From: ' + poster.startDate : ''}
+            ${poster.endDate ? ' | To: ' + poster.endDate : ''}
+          </div>
+        </div>
+      </article>
+    `;
+  });
+  
+  postersGrid.innerHTML = postersHTML;
+  
+  setTimeout(() => {
+    const revealItems = postersGrid.querySelectorAll('.reveal');
+    revealItems.forEach(item => item.classList.add('show'));
+  }, 100);
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadPostersOnMainPage);
+} else {
+  loadPostersOnMainPage();
 }
