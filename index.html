@@ -112,15 +112,16 @@
           </a>
         </li>
 
-        <!-- Admin Last -->
+        <!-- Admin Last (Password Protected) -->
         <li>
-  <a
-    href="upload-poster.html"
-    class="admin-nav-link"
-  >
-    Admin
-  </a>
-</li>
+          <button
+            id="adminButton"
+            class="admin-nav-link"
+            type="button"
+          >
+            Admin
+          </button>
+        </li>
       </ul>
 
       <!-- Header WhatsApp -->
@@ -881,6 +882,31 @@
 
     </section>
 
+    <!-- Posters Section (NEW) -->
+    <section class="section posters-section">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <p class="section-label">
+            LATEST POSTERS
+          </p>
+
+          <h2>
+            Our Current Offers & Updates
+          </h2>
+
+        </div>
+
+        <div class="posters-grid" id="postersGrid">
+          <!-- Posters will be loaded here from localStorage -->
+        </div>
+
+      </div>
+
+    </section>
+
     <!-- Testimonials -->
     <section
       id="testimonials"
@@ -915,7 +941,7 @@
             </div>
 
             <p>
-              “Good quality materials and timely delivery support.”
+              "Good quality materials and timely delivery support."
             </p>
 
             <strong>
@@ -935,7 +961,7 @@
             </div>
 
             <p>
-              “Quick response and helpful service for our project.”
+              "Quick response and helpful service for our project."
             </p>
 
             <strong>
@@ -955,7 +981,7 @@
             </div>
 
             <p>
-              “The material supply process was simple and reliable.”
+              "The material supply process was simple and reliable."
             </p>
 
             <strong>
@@ -989,7 +1015,7 @@
           </p>
 
           <h2>
-            Let’s Build Something Strong Together
+            Let's Build Something Strong Together
           </h2>
 
           <p class="contact-description">
