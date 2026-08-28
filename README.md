@@ -49,6 +49,23 @@ text
 - LocalStorage (for poster data)
 - WhatsApp Business API
 
+  # NS Traders — Construction Materials & Services
+
+Website for NS Traders (Blue Metal & Transports), Puducherry.
+
+## Pages
+- `index.html` — Main website
+- `upload-poster.html` — Admin page to manage promotional posters
+
+## Setup
+Poster uploads use Cloudinary (image storage) + Google Sheets (data).
+See `SETUP-INSTRUCTIONS.md` for configuration steps.
+Config values are in `js/config.js`.
+
+## Contact
+Phone: +91 63898 98606
+WhatsApp: +91 89409 07122
+
 ## 📞 Contact
 
 NS Bluemetal, Uruvaiyar, Puducherry 605110
