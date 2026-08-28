@@ -351,7 +351,7 @@
       <h3 style="color: var(--deep-blue); margin-bottom: 20px; text-align: center;">
         Preview - How it looks on main page
       </h3>
-      <div id="adminPreview" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;"></div>
+      <div id="adminPreview" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;"></div>
     </div>
 
     <p class="note">
@@ -363,6 +363,7 @@
 
   </main>
 
+  <script src="js/config.js"></script>
   <script>
     "use strict";
 
@@ -370,20 +371,28 @@
     const addPosterButton = document.getElementById("addPosterButton");
     const submitPosterButton = document.getElementById("submitPosterButton");
     const statusElement = document.getElementById("status");
+    let postersCache = [];
 
-    function loadExistingPosters() {
-      const savedPosters = localStorage.getItem('nsPosters');
-      
-      if (!savedPosters) {
-        posterList.innerHTML = '';
+    async function loadExistingPosters() {
+      statusElement.textContent = "Loading posters...";
+      statusElement.className = "status";
+
+      let posters = [];
+      try {
+        posters = await nsFetchPosters();
+        postersCache = posters;
+      } catch (err) {
+        statusElement.textContent = "Could not load posters. Check your config.js settings.";
+        statusElement.className = "status error";
+        posterList.innerHTML = "";
         posterList.appendChild(createPosterBox());
         updatePosterNumbers();
         return;
       }
-      
-      const posters = JSON.parse(savedPosters);
-      
-      if (posters.length === 0) {
+
+      statusElement.textContent = "";
+
+      if (!posters || posters.length === 0) {
         posterList.innerHTML = '';
         posterList.appendChild(createPosterBox());
         updatePosterNumbers();
@@ -412,10 +421,12 @@
         startDateInput.value = poster.startDate;
         endDateInput.value = poster.endDate;
         statusSelect.value = poster.status;
+        posterBox.dataset.posterId = poster.id;
+        posterBox.dataset.existingImageUrl = poster.imageUrl || "";
         
-        if (poster.image) {
-          previewImage.src = poster.image;
-          fileName.textContent = 'Loaded from storage';
+        if (poster.imageUrl) {
+          previewImage.src = poster.imageUrl;
+          fileName.textContent = 'Loaded from server';
           previewWrapper.classList.add('show');
         }
 
@@ -541,7 +552,7 @@
       updatePosterNumbers();
     }
 
-    function removePoster(event) {
+    async function removePoster(event) {
       const removeButton = event.target.closest(".remove-button");
       if (!removeButton) return;
       
@@ -552,7 +563,22 @@
         return;
       }
       
-      removeButton.closest(".poster-box").remove();
+      const posterBox = removeButton.closest(".poster-box");
+      const posterId = posterBox.dataset.posterId;
+
+      if (posterId) {
+        statusElement.textContent = "Deleting...";
+        statusElement.className = "status";
+        try {
+          await nsSavePoster({ action: "delete", id: posterId });
+        } catch (err) {
+          statusElement.textContent = "Could not delete from server. Try again.";
+          statusElement.className = "status error";
+          return;
+        }
+      }
+
+      posterBox.remove();
       updatePosterNumbers();
       statusElement.textContent = "";
       statusElement.className = "status";
@@ -602,60 +628,82 @@
       reader.readAsDataURL(file);
     }
 
-    function submitPosters() {
+    async function submitPosters() {
       const posterBoxes = posterList.querySelectorAll(".poster-box");
-      const postersData = [];
 
-      posterBoxes.forEach(function(box) {
-        const title = box.querySelector(".poster-title").value.trim();
-        const category = box.querySelector(".poster-category").value;
-        const details = box.querySelector(".poster-details").value.trim();
-        const startDate = box.querySelector(".poster-start-date").value;
-        const endDate = box.querySelector(".poster-end-date").value;
-        const status = box.querySelector(".poster-status").value;
-        
-        const previewImage = box.querySelector(".image-preview");
-        let imageData = null;
-        if (previewImage && previewImage.src && previewImage.src.startsWith('data:image')) {
-          imageData = previewImage.src;
-        }
-        
-        postersData.push({
-          id: Date.now() + Math.random(),
-          title: title || "Untitled Poster",
-          category: category,
-          details: details,
-          startDate: startDate,
-          endDate: endDate,
-          status: status,
-          image: imageData
-        });
-      });
-
-      localStorage.setItem('nsPosters', JSON.stringify(postersData));
-      
-      statusElement.textContent = "Posters saved successfully! Check main page.";
+      submitPosterButton.disabled = true;
+      statusElement.textContent = "Saving posters...";
       statusElement.className = "status";
-      
-      setTimeout(() => {
-        loadExistingPosters();
-        updateAdminPreview();
-        statusElement.textContent = "";
-      }, 2000);
+
+      try {
+        for (const box of posterBoxes) {
+          const title = box.querySelector(".poster-title").value.trim();
+          const category = box.querySelector(".poster-category").value;
+          const details = box.querySelector(".poster-details").value.trim();
+          const startDate = box.querySelector(".poster-start-date").value;
+          const endDate = box.querySelector(".poster-end-date").value;
+          const status = box.querySelector(".poster-status").value;
+          const posterId = box.dataset.posterId || "";
+          const fileInput = box.querySelector(".poster-image-input");
+          const newFile = fileInput.files && fileInput.files[0];
+
+          let imageUrl = box.dataset.existingImageUrl || "";
+
+          if (newFile) {
+            statusElement.textContent = "Uploading image for \"" + (title || "Untitled") + "\"...";
+            imageUrl = await nsUploadImageToCloudinary(newFile);
+          }
+
+          if (!imageUrl) {
+            statusElement.textContent = "Please choose an image for \"" + (title || "Untitled") + "\".";
+            statusElement.className = "status error";
+            submitPosterButton.disabled = false;
+            return;
+          }
+
+          const posterPayload = {
+            action: posterId ? "update" : "add",
+            id: posterId,
+            title: title || "Untitled Poster",
+            category: category,
+            details: details,
+            startDate: startDate,
+            endDate: endDate,
+            status: status,
+            imageUrl: imageUrl
+          };
+
+          await nsSavePoster(posterPayload);
+        }
+
+        statusElement.textContent = "Posters saved successfully! Check main page.";
+        statusElement.className = "status";
+
+        await loadExistingPosters();
+        await updateAdminPreview();
+        setTimeout(() => { statusElement.textContent = ""; }, 2000);
+      } catch (err) {
+        statusElement.textContent = "Something went wrong saving posters. Check your config.js settings and try again.";
+        statusElement.className = "status error";
+      } finally {
+        submitPosterButton.disabled = false;
+      }
     }
 
-    function updateAdminPreview() {
+    async function updateAdminPreview() {
       const previewContainer = document.getElementById('adminPreview');
       if (!previewContainer) return;
-      
-      const savedPosters = localStorage.getItem('nsPosters');
-      if (!savedPosters) {
-        previewContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No posters uploaded yet.</p>';
+
+      let posters = postersCache;
+      try {
+        posters = await nsFetchPosters();
+        postersCache = posters;
+      } catch (err) {
+        previewContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">Could not load posters.</p>';
         return;
       }
-      
-      const posters = JSON.parse(savedPosters);
-      if (posters.length === 0) {
+
+      if (!posters || posters.length === 0) {
         previewContainer.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No posters uploaded yet.</p>';
         return;
       }
@@ -663,9 +711,9 @@
       let previewHTML = '';
       posters.forEach(function(poster, index) {
         const categoryColor = poster.category === 'Offer' ? '#128c45' : poster.category === 'Product' ? '#353ebb' : poster.category === 'Service' ? '#0b2a4a' : '#170433';
-        const imageSrc = poster.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23dce5ec" width="400" height="300"/%3E%3Ctext fill="%236b7785" font-family="Arial" font-size="20" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
+        const imageSrc = poster.imageUrl || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23dce5ec" width="400" height="300"/%3E%3Ctext fill="%236b7785" font-family="Arial" font-size="20" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
         
-        previewHTML += '<article data-poster-index="' + index + '" style="overflow: hidden; border: 1px solid var(--border-gray); border-radius: 10px; background-color: var(--white); box-shadow: 0 5px 18px rgba(6, 26, 51, 0.04);"><div style="position: relative; aspect-ratio: 4 / 3; overflow: hidden; background-color: #dce5ec;"><img src="' + imageSrc + '" alt="' + poster.title + '" style="width: 100%; height: 100%; object-fit: cover;"></div><div style="padding: 24px;"><h3 style="margin-bottom: 10px; color: var(--deep-blue); font-size: 20px; font-weight: 700;">' + poster.title + '</h3><span style="display: inline-block; margin-bottom: 12px; padding: 5px 12px; border-radius: 20px; color: var(--white); background-color: ' + categoryColor + '; font-size: 11px; font-weight: 600; text-transform: uppercase;">' + poster.category + '</span><p style="margin-bottom: 15px; color: var(--text-muted); font-size: 13px; line-height: 1.6;">' + poster.details + '</p><div style="padding-top: 15px; border-top: 1px solid var(--border-gray); color: var(--gray-dark); font-size: 12px;">' + (poster.startDate ? 'From: ' + poster.startDate : '') + (poster.endDate ? ' | To: ' + poster.endDate : '') + '</div><div style="display: flex; gap: 8px; margin-top: 10px;"><button class="preview-edit-btn" data-index="' + index + '" style="flex: 1; padding: 8px; border: 1px solid var(--deep-blue); color: var(--deep-blue); background-color: var(--white); font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 4px;">Edit</button><button class="preview-delete-btn" data-index="' + index + '" style="flex: 1; margin-top: 0;">Delete from Preview</button></div></div></article>';
+        previewHTML += '<article data-poster-index="' + index + '" style="overflow: hidden; border: 1px solid var(--border-gray); border-radius: 10px; background-color: var(--white); box-shadow: 0 5px 18px rgba(6, 26, 51, 0.04);"><div style="position: relative; aspect-ratio: 4 / 3; overflow: hidden; background-color: #f0f4f8;"><img src="' + imageSrc + '" alt="' + poster.title + '" style="width: 100%; height: 100%; object-fit: contain;"></div><div style="padding: 24px;"><h3 style="margin-bottom: 10px; color: var(--deep-blue); font-size: 20px; font-weight: 700;">' + poster.title + '</h3><span style="display: inline-block; margin-bottom: 12px; padding: 5px 12px; border-radius: 20px; color: var(--white); background-color: ' + categoryColor + '; font-size: 11px; font-weight: 600; text-transform: uppercase;">' + poster.category + '</span><p style="margin-bottom: 15px; color: var(--text-muted); font-size: 13px; line-height: 1.6;">' + poster.details + '</p><div style="padding-top: 15px; border-top: 1px solid var(--border-gray); color: var(--gray-dark); font-size: 12px;">' + (poster.startDate ? 'From: ' + poster.startDate : '') + (poster.endDate ? ' | To: ' + poster.endDate : '') + '</div><div style="display: flex; gap: 8px; margin-top: 10px;"><button class="preview-edit-btn" data-index="' + index + '" style="flex: 1; padding: 8px; border: 1px solid var(--deep-blue); color: var(--deep-blue); background-color: var(--white); font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 4px;">Edit</button><button class="preview-delete-btn" data-index="' + index + '" style="flex: 1; margin-top: 0;">Delete from Preview</button></div></div></article>';
       });
       
       previewContainer.innerHTML = previewHTML;
@@ -694,6 +742,7 @@
       const targetBox = posterBoxes[index];
       if (!targetBox) return;
 
+      setPosterBoxLocked(targetBox, false);
       targetBox.scrollIntoView({ behavior: "smooth", block: "center" });
       targetBox.style.border = "2px solid var(--deep-blue)";
       setTimeout(function () {
@@ -707,28 +756,33 @@
       statusElement.className = "status";
     }
 
-    function deletePosterFromPreview(index) {
-      const savedPosters = localStorage.getItem('nsPosters');
-      if (!savedPosters) return;
-      
-      const posters = JSON.parse(savedPosters);
-      if (posters.length <= 1) {
+    async function deletePosterFromPreview(index) {
+      if (postersCache.length <= 1) {
         statusElement.textContent = "At least one poster is required.";
         statusElement.className = "status error";
         return;
       }
-      
-      posters.splice(index, 1);
-      localStorage.setItem('nsPosters', JSON.stringify(posters));
+
+      const poster = postersCache[index];
+      if (!poster) return;
+
+      statusElement.textContent = "Deleting...";
+      statusElement.className = "status";
+
+      try {
+        await nsSavePoster({ action: "delete", id: poster.id });
+      } catch (err) {
+        statusElement.textContent = "Could not delete. Try again.";
+        statusElement.className = "status error";
+        return;
+      }
       
       statusElement.textContent = "Poster deleted!";
       statusElement.className = "status";
       
-      setTimeout(() => {
-        loadExistingPosters();
-        updateAdminPreview();
-        statusElement.textContent = "";
-      }, 1500);
+      await loadExistingPosters();
+      await updateAdminPreview();
+      setTimeout(() => { statusElement.textContent = ""; }, 1500);
     }
 
     addPosterButton.addEventListener("click", addPoster);
@@ -737,8 +791,10 @@
     posterList.addEventListener("change", previewSelectedImage);
     submitPosterButton.addEventListener("click", submitPosters);
 
-    loadExistingPosters();
-    updateAdminPreview();
+    (async function init() {
+      await loadExistingPosters();
+      await updateAdminPreview();
+    })();
   </script>
 
 </body>
