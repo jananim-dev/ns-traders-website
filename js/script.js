@@ -1,7 +1,6 @@
 "use strict";
 
-const whatsappNumber = "918940907122";
-const callNumber = "6380808606";
+const whatsappNumber = "91XXXXXXXXXX";
 const companyName = "NS Traders";
 const generalMessage = "Hello NS Traders, I need details about your construction materials and services.";
 
@@ -146,7 +145,11 @@ const floatCall = document.getElementById("floatCall");
 if (floatCall) {
   floatCall.addEventListener("click", function (event) {
     event.preventDefault();
-    window.location.href = "tel:+" + callNumber;
+    if (!whatsappNumberReady()) {
+      window.alert("Please replace the WhatsApp number in js/script.js first.");
+      return;
+    }
+    window.location.href = "tel:+" + whatsappNumber;
   });
 }
 
@@ -257,17 +260,24 @@ if (adminButton) {
   });
 }
 
-function loadPostersOnMainPage() {
+async function loadPostersOnMainPage() {
   const postersGrid = document.getElementById('postersGrid');
   if (!postersGrid) return;
-  
-  const savedPosters = localStorage.getItem('nsPosters');
-  if (!savedPosters) {
+
+  postersGrid.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">Loading...</p>';
+
+  let posters = [];
+  try {
+    posters = await nsFetchPosters();
+  } catch (err) {
     postersGrid.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">No posters uploaded yet.</p>';
     return;
   }
-  
-  const posters = JSON.parse(savedPosters);
+
+  posters = (posters || []).filter(function (poster) {
+    return poster.status !== 'Inactive';
+  });
+
   if (posters.length === 0) {
     postersGrid.innerHTML = '<p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">No posters uploaded yet.</p>';
     return;
@@ -276,7 +286,7 @@ function loadPostersOnMainPage() {
   let postersHTML = '';
   posters.forEach(function(poster) {
     const categoryColor = poster.category === 'Offer' ? '#128c45' : poster.category === 'Product' ? '#353ebb' : poster.category === 'Service' ? '#0b2a4a' : '#170433';
-    const imageSrc = poster.image || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23dce5ec" width="400" height="300"/%3E%3Ctext fill="%236b7785" font-family="Arial" font-size="20" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
+    const imageSrc = poster.imageUrl || 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="300"%3E%3Crect fill="%23dce5ec" width="400" height="300"/%3E%3Ctext fill="%236b7785" font-family="Arial" font-size="20" x="50%25" y="50%25" text-anchor="middle" dominant-baseline="middle"%3ENo Image%3C/text%3E%3C/svg%3E';
     
     postersHTML += '<article class="poster-display-card reveal"><div class="poster-display-image"><img src="' + imageSrc + '" alt="' + poster.title + '"></div><div class="poster-display-content"><h3 class="poster-display-title">' + poster.title + '</h3><span class="poster-display-category" style="background-color: ' + categoryColor + '">' + poster.category + '</span><p class="poster-display-details">' + poster.details + '</p><div class="poster-display-dates">' + (poster.startDate ? 'From: ' + poster.startDate : '') + (poster.endDate ? ' | To: ' + poster.endDate : '') + '</div></div></article>';
   });
