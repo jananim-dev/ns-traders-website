@@ -1,6 +1,8 @@
 "use strict";
 
-const whatsappNumber = "916380808606";
+
+const whatsappNumber = "918940907122";
+const callNumber = "6380808606";
 const companyName = "NS Traders";
 const generalMessage = "Hello NS Traders, I need details about your construction materials and services.";
 
