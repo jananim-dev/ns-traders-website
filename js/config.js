@@ -7,7 +7,8 @@
 const NS_CONFIG = {
   SHEET_API_URL: "https://script.google.com/macros/s/AKfycbyaAMP_c-5rdODKvpYjh28O6UYPQ1jaufpr4yGLrkpLjhBeJmUBpQS8UqxHNtbycsxGCA/exec",
   CLOUDINARY_CLOUD_NAME: "vg7oyvmw",
-  CLOUDINARY_UPLOAD_PRESET: "nstraders"
+  CLOUDINARY_UPLOAD_PRESET: "nstraders",
+  ADMIN_PASSWORD: "nstraders2026"
 };
 
 // Uploads a poster image file to Cloudinary and returns its public URL
