@@ -247,18 +247,76 @@ if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
 }
 
-const adminButton = document.getElementById('adminButton');
+const testimonialTrack = document.getElementById("testimonialTrack");
+const testimonialDotsWrap = document.getElementById("testimonialDots");
 
-if (adminButton) {
-  adminButton.addEventListener('click', function(event) {
-    event.preventDefault();
-    const password = prompt('Enter Admin Password:');
-    if (password === 'admin123') {
-      window.location.href = 'upload-poster.html';
-    } else if (password !== null) {
-      alert('Wrong password! Please try again.');
-    }
+if (testimonialTrack && testimonialDotsWrap) {
+  const testimonialCards = testimonialTrack.querySelectorAll(".testimonial-card");
+  let currentSlide = 0;
+  let autoSlideTimer = null;
+
+  testimonialCards.forEach(function (_, index) {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = "testimonial-dot" + (index === 0 ? " active" : "");
+    dot.setAttribute("aria-label", "Show testimonial " + (index + 1));
+    dot.addEventListener("click", function () {
+      goToSlide(index);
+      restartAutoSlide();
+    });
+    testimonialDotsWrap.appendChild(dot);
   });
+
+  const testimonialDots = testimonialDotsWrap.querySelectorAll(".testimonial-dot");
+
+  function goToSlide(index) {
+    currentSlide = (index + testimonialCards.length) % testimonialCards.length;
+    testimonialTrack.style.transform = "translateX(-" + (currentSlide * 100) + "%)";
+    testimonialDots.forEach(function (dot, i) {
+      dot.classList.toggle("active", i === currentSlide);
+    });
+  }
+
+  function startAutoSlide() {
+    autoSlideTimer = window.setInterval(function () {
+      goToSlide(currentSlide + 1);
+    }, 4000);
+  }
+
+  function restartAutoSlide() {
+    if (autoSlideTimer) window.clearInterval(autoSlideTimer);
+    startAutoSlide();
+  }
+
+  const sliderWrapper = testimonialTrack.closest(".testimonial-slider");
+
+  if (sliderWrapper) {
+    sliderWrapper.addEventListener("mouseenter", function () {
+      if (autoSlideTimer) window.clearInterval(autoSlideTimer);
+    });
+    sliderWrapper.addEventListener("mouseleave", startAutoSlide);
+
+    let touchStartX = 0;
+
+    sliderWrapper.addEventListener("touchstart", function (event) {
+      touchStartX = event.touches[0].clientX;
+    }, { passive: true });
+
+    sliderWrapper.addEventListener("touchend", function (event) {
+      const touchEndX = event.changedTouches[0].clientX;
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 40) {
+        if (swipeDistance < 0) {
+          goToSlide(currentSlide + 1);
+        } else {
+          goToSlide(currentSlide - 1);
+        }
+        restartAutoSlide();
+      }
+    }, { passive: true });
+  }
+
+  startAutoSlide();
 }
 
 async function loadPostersOnMainPage() {
