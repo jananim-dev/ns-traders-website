@@ -44,6 +44,64 @@
       box-shadow: 0 18px 45px rgba(6, 26, 51, 0.1);
     }
 
+    .password-gate {
+      width: 100%;
+      max-width: 380px;
+      padding: 36px;
+      border: 1px solid var(--border-gray);
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 18px 45px rgba(6, 26, 51, 0.1);
+      text-align: center;
+    }
+
+    .password-gate img {
+      width: 130px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .password-gate h2 {
+      margin-bottom: 8px;
+      color: var(--deep-blue);
+      font-size: 20px;
+    }
+
+    .password-gate p {
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .password-gate input {
+      width: 100%;
+      margin-bottom: 14px;
+      padding: 12px 14px;
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    .password-gate button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      color: var(--white);
+      background: var(--deep-blue);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .password-gate .gate-error {
+      margin-top: 12px;
+      color: var(--red);
+      font-size: 13px;
+      display: none;
+    }
+
     .admin-header {
       margin-bottom: 30px;
       text-align: center;
@@ -317,7 +375,16 @@
 
 <body>
 
-  <main class="admin-card">
+  <div id="passwordGate" class="password-gate">
+    <img src="images/ns-logo.png" alt="NS Traders Logo">
+    <h2>Admin Access</h2>
+    <p>Enter the admin password to manage posters.</p>
+    <input id="gatePasswordInput" type="password" placeholder="Password" autocomplete="off">
+    <button id="gateSubmitButton" type="button">Enter</button>
+    <p class="gate-error" id="gateError">Wrong password. Try again.</p>
+  </div>
+
+  <main class="admin-card" id="adminCard" style="display: none;">
 
     <div class="admin-header">
 
@@ -365,6 +432,44 @@
 
   <script src="js/config.js"></script>
   <script>
+    "use strict";
+
+    (function () {
+      const gate = document.getElementById("passwordGate");
+      const adminCard = document.getElementById("adminCard");
+      const input = document.getElementById("gatePasswordInput");
+      const submitButton = document.getElementById("gateSubmitButton");
+      const errorText = document.getElementById("gateError");
+
+      function unlock() {
+        sessionStorage.setItem("ns_admin_authed", "true");
+        gate.style.display = "none";
+        adminCard.style.display = "block";
+        startAdminApp();
+      }
+
+      function tryPassword() {
+        if (input.value === NS_CONFIG.ADMIN_PASSWORD) {
+          unlock();
+        } else {
+          errorText.style.display = "block";
+          input.value = "";
+          input.focus();
+        }
+      }
+
+      if (sessionStorage.getItem("ns_admin_authed") === "true") {
+        unlock();
+      } else {
+        submitButton.addEventListener("click", tryPassword);
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") tryPassword();
+        });
+        input.focus();
+      }
+    })();
+
+    function startAdminApp() {
     "use strict";
 
     const posterList = document.getElementById("posterList");
@@ -795,6 +900,7 @@
       await loadExistingPosters();
       await updateAdminPreview();
     })();
+    } // end startAdminApp
   </script>
 
 </body>
