@@ -771,23 +771,53 @@ section {
   background-color: var(--light-gray);
 }
 
-.testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+.testimonial-slider {
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.6s ease;
 }
 
 .testimonial-card {
-  padding: 30px;
+  flex: 0 0 100%;
+  min-width: 0;
+  max-width: 640px;
+  margin-inline: auto;
+  padding: 40px;
   border: 1px solid var(--border-gray);
   border-radius: 10px;
   background-color: var(--white);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
 }
 
 .testimonial-card:hover {
-  transform: translateY(-6px);
   box-shadow: var(--shadow);
+}
+
+.testimonial-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.testimonial-dot {
+  width: 9px;
+  height: 9px;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--border-gray);
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.testimonial-dot.active {
+  background-color: var(--deep-blue);
+  transform: scale(1.25);
 }
 
 .stars {
@@ -800,6 +830,7 @@ section {
   min-height: 55px;
   margin-bottom: 24px;
   color: var(--text-muted);
+  font-size: 18px;
   line-height: 1.7;
 }
 
@@ -1209,14 +1240,12 @@ section {
 
 .features-grid .reveal:nth-child(2),
 .process-grid .reveal:nth-child(2),
-.services-grid .reveal:nth-child(2),
-.testimonial-grid .reveal:nth-child(2) {
+.services-grid .reveal:nth-child(2) {
   transition-delay: 0.1s;
 }
 
 .features-grid .reveal:nth-child(3),
-.process-grid .reveal:nth-child(3),
-.testimonial-grid .reveal:nth-child(3) {
+.process-grid .reveal:nth-child(3) {
   transition-delay: 0.2s;
 }
 
@@ -1330,10 +1359,6 @@ section {
   .services-grid {
     grid-template-columns: 1fr;
   }
-
-  .testimonial-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 600px) {
@@ -1401,10 +1426,17 @@ section {
   }
 
   .product-grid,
-  .testimonial-grid,
   .features-grid,
   .process-grid {
     grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    padding: 26px;
+  }
+
+  .testimonial-card p {
+    font-size: 16px;
   }
 
   .product-content {
