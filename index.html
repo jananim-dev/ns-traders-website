@@ -58,8 +58,8 @@
   <main>
 
     <section id="home" class="hero">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="images/hero-poster.jpg" aria-hidden="true">
-        <source src="videos/ns-traders-hero.mp4" type="video/mp4">
+      <video id="heroVideo" class="hero-video" autoplay muted loop playsinline preload="metadata" poster="images/hero-poster.jpg" aria-hidden="true" data-video-list="videos/ns-traders-hero-1.mp4,videos/ns-traders-hero-2.mp4,videos/ns-traders-hero-3.mp4,videos/ns-traders-hero-4.mp4">
+        <source src="videos/ns-traders-hero-1.mp4" type="video/mp4">
         Your browser does not support background video.
       </video>
       <div class="hero-overlay"></div>
@@ -260,7 +260,7 @@
           <h2>What Our Customers Say</h2>
           <p class="demo-note">Customer reviews will be updated after receiving final client details.</p>
         </div>
-        <div class="testimonial-slider reveal">
+        <div class="testimonial-slider">
           <div class="testimonial-track" id="testimonialTrack">
             <article class="testimonial-card"><div class="stars">★★★★★</div><p>"Good quality materials and timely delivery support."</p><strong>Karthik Raja</strong><span>Local Project</span></article>
             <article class="testimonial-card"><div class="stars">★★★★★</div><p>"Quick response and helpful service for our project."</p><strong>Priya Dharshini</strong><span>Residential Project</span></article>
