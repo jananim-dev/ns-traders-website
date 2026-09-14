@@ -170,11 +170,32 @@ const heroVideo = document.querySelector(".hero-video");
 
 if (heroVideo) {
   heroVideo.muted = true;
-  const playPromise = heroVideo.play();
-  if (playPromise && typeof playPromise.catch === "function") {
-    playPromise.catch(function () {
-      console.log("Background video autoplay was blocked.");
-    });
+
+  function playHeroVideo() {
+    const playPromise = heroVideo.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(function () {
+        console.log("Background video autoplay was blocked.");
+      });
+    }
+  }
+
+  playHeroVideo();
+
+  const heroVideoList = (heroVideo.dataset.videoList || "")
+    .split(",")
+    .map(function (path) { return path.trim(); })
+    .filter(Boolean);
+
+  if (heroVideoList.length > 1) {
+    let heroVideoIndex = 0;
+
+    window.setInterval(function () {
+      heroVideoIndex = (heroVideoIndex + 1) % heroVideoList.length;
+      heroVideo.src = heroVideoList[heroVideoIndex];
+      heroVideo.load();
+      playHeroVideo();
+    }, 12000);
   }
 }
 
