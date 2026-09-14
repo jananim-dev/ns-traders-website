@@ -350,7 +350,7 @@ section {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background-color: rgba(6, 26, 51, 0.72);
+  background-color: rgba(6, 26, 51, 0.42);
 }
 
 .hero-content {
@@ -381,6 +381,7 @@ section {
   line-height: 1;
   letter-spacing: -0.055em;
   text-wrap: balance;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
 }
 
 .hero h1 span {
@@ -395,6 +396,7 @@ section {
   color: var(--text-on-dark-muted);
   font-size: clamp(1rem, 1.5vw, 1.12rem);
   line-height: 1.8;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .hero-buttons {
