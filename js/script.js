@@ -170,34 +170,87 @@ const heroVideo = document.querySelector(".hero-video");
 
 if (heroVideo) {
   heroVideo.muted = true;
-
-  function playHeroVideo() {
-    const playPromise = heroVideo.play();
-    if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(function () {
-        console.log("Background video autoplay was blocked.");
-      });
-    }
-  }
-
-  playHeroVideo();
-
-  const heroVideoList = (heroVideo.dataset.videoList || "")
-    .split(",")
-    .map(function (path) { return path.trim(); })
-    .filter(Boolean);
-
-  if (heroVideoList.length > 1) {
-    let heroVideoIndex = 0;
-
-    window.setInterval(function () {
-      heroVideoIndex = (heroVideoIndex + 1) % heroVideoList.length;
-      heroVideo.src = heroVideoList[heroVideoIndex];
-      heroVideo.load();
-      playHeroVideo();
-    }, 12000);
+  const playPromise = heroVideo.play();
+  if (playPromise && typeof playPromise.catch === "function") {
+    playPromise.catch(function () {
+      console.log("Background video autoplay was blocked.");
+    });
   }
 }
+
+const showcaseSlidePool = [
+  { src: "videos/ns-traders-hero-1.mp4", caption: "Construction Materials in Motion" },
+  { src: "videos/ns-traders-hero-2.mp4", caption: "Earth Movers at Work" },
+  { src: "videos/ns-traders-hero-3.mp4", caption: "Reliable Site Delivery" },
+  { src: "videos/ns-traders-hero-4.mp4", caption: "On-Time Site Support" }
+];
+
+function setUpShowcaseCard(cardNumber, startIndex) {
+  const video = document.getElementById("showcaseVideo" + cardNumber);
+  const caption = document.getElementById("showcaseCaption" + cardNumber);
+  const prevBtn = document.querySelector('.showcase-arrow.prev[data-card="' + cardNumber + '"]');
+  const nextBtn = document.querySelector('.showcase-arrow.next[data-card="' + cardNumber + '"]');
+  const pauseBtn = document.querySelector('.showcase-pause[data-card="' + cardNumber + '"]');
+
+  if (!video || !prevBtn || !nextBtn || !pauseBtn) return;
+
+  let index = startIndex;
+  let timer = null;
+  let playing = true;
+
+  function showSlide(newIndex) {
+    index = (newIndex + showcaseSlidePool.length) % showcaseSlidePool.length;
+    const slide = showcaseSlidePool[index];
+    video.src = slide.src;
+    video.load();
+    if (playing) {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(function () {});
+      }
+    }
+    if (caption) caption.textContent = slide.caption;
+  }
+
+  function startAutoAdvance() {
+    if (timer) window.clearInterval(timer);
+    timer = window.setInterval(function () {
+      showSlide(index + 1);
+    }, 12000);
+  }
+
+  prevBtn.addEventListener("click", function () {
+    showSlide(index - 1);
+    startAutoAdvance();
+  });
+
+  nextBtn.addEventListener("click", function () {
+    showSlide(index + 1);
+    startAutoAdvance();
+  });
+
+  pauseBtn.addEventListener("click", function () {
+    playing = !playing;
+    if (playing) {
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(function () {});
+      }
+      pauseBtn.textContent = "Pause";
+      startAutoAdvance();
+    } else {
+      video.pause();
+      pauseBtn.textContent = "Resume";
+      if (timer) window.clearInterval(timer);
+    }
+  });
+
+  startAutoAdvance();
+}
+
+setUpShowcaseCard(1, 0);
+setUpShowcaseCard(2, 1);
+setUpShowcaseCard(3, 2);
 
 const revealItems = document.querySelectorAll(".reveal");
 
